@@ -1,0 +1,16 @@
+# Dependências
+node_modules/
+
+# Variáveis de ambiente (NUNCA versionar o .env real)
+.env
+
+# Logs
+*.log
+logs/
+
+# Build / transpiled output
+dist/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
