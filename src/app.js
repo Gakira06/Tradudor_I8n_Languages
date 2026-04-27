@@ -1,10 +1,34 @@
 "use strict";
 
 const express = require("express");
+const cors = require("cors");
 const traducoesRoutes = require("./routes/traducoes.routes");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
+
+// ---------------------------------------------------------
+// CORS — permite origens configuradas via env
+// ---------------------------------------------------------
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Permite requisições sem origin (ex: curl, Render health-check)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new Error(`CORS: origem não permitida — ${origin}`));
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }),
+);
 
 // ---------------------------------------------------------
 // Middlewares globais
