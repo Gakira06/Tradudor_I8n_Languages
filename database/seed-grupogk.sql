@@ -26,7 +26,6 @@ ON CONFLICT (codigo) DO NOTHING;
 INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
 SELECT t.chave, t.valor, s.id, i.id
 FROM sistemas s
-JOIN idiomas   i ON i.codigo = t.codigo_idioma
 JOIN (VALUES
 
   -- ─── NAVEGAÇÃO (SIDEBAR) ────────────────────────────────────
@@ -648,5 +647,6 @@ JOIN (VALUES
   ('MSG_SEM_DADOS',       'ar-MA', 'لا توجد بيانات للعرض.')
 
 ) AS t(chave, codigo_idioma, valor) ON TRUE
+JOIN idiomas i ON i.codigo = t.codigo_idioma
 WHERE s.codigo = 'grupogk'
 ON CONFLICT (chave, sistema_id, idioma_id) DO UPDATE SET valor = EXCLUDED.valor;
