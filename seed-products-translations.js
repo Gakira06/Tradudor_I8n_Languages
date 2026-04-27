@@ -10,7 +10,7 @@
  */
 
 const BACKEND_URL =
-  process.env.BACKEND_URL || "https://pizzaria-china-backend.onrender.com/api";
+  process.env.BACKEND_URL || "https://exemplopizzariabackend.onrender.com/api";
 const I18N_URL = "https://tradudor-i8n-languages.onrender.com";
 const SISTEMA = "website";
 
