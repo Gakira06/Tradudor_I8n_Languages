@@ -12,6 +12,12 @@ const router = Router();
 router.post("/", controller.cadastrar);
 
 /**
+ * POST /traducoes/produto-auto
+ * Traduz e salva nome/descrição/categoria do produto para todos os idiomas.
+ */
+router.post("/produto-auto", controller.cadastrarProdutoAuto);
+
+/**
  * GET /traducoes/:sistema/:idioma
  * Retorna todas as traduções de um sistema no idioma solicitado,
  * com fallback automático para pt-BR quando necessário.

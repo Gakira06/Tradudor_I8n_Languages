@@ -2,6 +2,16 @@
 
 const repo = require("../repositories/traducoes.repository");
 
+const PRODUCT_LOCALES = ["pt-BR", "pt-PT", "en-US", "it-IT", "es-ES", "ar-MA"];
+const TRANSLATE_CODE_MAP = {
+  "pt-BR": "pt-BR",
+  "pt-PT": "pt-PT",
+  "en-US": "en",
+  "it-IT": "it",
+  "es-ES": "es",
+  "ar-MA": "ar",
+};
+
 // Idiomas escritos da direita para a esquerda
 const RTL_LOCALES = new Set([
   "ar-MA",
@@ -11,6 +21,74 @@ const RTL_LOCALES = new Set([
   "fa-IR",
   "ur-PK",
 ]);
+
+function normalizeCategoryKey(cat) {
+  return `CAT_${(cat ?? "GERAL")
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/[^A-Z0-9_]/g, "")}`;
+}
+
+async function translateText(text, fromLocale, toLocale) {
+  if (!text) return "";
+  if (fromLocale === toLocale) return text;
+
+  const from = TRANSLATE_CODE_MAP[fromLocale] ?? fromLocale;
+  const to = TRANSLATE_CODE_MAP[toLocale] ?? toLocale;
+
+  // Tenta LibreTranslate primeiro (se configurado)
+  if (process.env.LIBRETRANSLATE_URL) {
+    try {
+      const libretranslateUrl = process.env.LIBRETRANSLATE_URL;
+      const libretranslateKey = process.env.LIBRETRANSLATE_API_KEY;
+
+      const body = {
+        q: text,
+        source_language: from,
+        target_language: to,
+      };
+
+      if (libretranslateKey) {
+        body.api_key = libretranslateKey;
+      }
+
+      const res = await fetch(libretranslateUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+        timeout: 10000,
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const translated = data?.translatedText?.trim();
+        if (translated) return translated;
+      }
+    } catch (error) {
+      console.warn(`LibreTranslate fallback to MyMemory: ${error.message}`);
+    }
+  }
+
+  // Fallback para MyMemory (sempre disponível, testado e confiável)
+  try {
+    const res = await fetch(
+      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(from)}|${encodeURIComponent(to)}`,
+    );
+    if (!res.ok) return text;
+    const data = await res.json();
+    const translated = data?.responseData?.translatedText?.trim();
+    return translated || text;
+  } catch (error) {
+    console.warn(
+      `MyMemory translation failed: ${error.message}. Returning original text.`,
+    );
+    return text;
+  }
+}
 
 /**
  * GET /traducoes/:sistema/:idioma
@@ -119,4 +197,107 @@ async function cadastrar(req, res, next) {
   }
 }
 
-module.exports = { listar, cadastrar };
+/**
+ * POST /traducoes/produto-auto
+ *
+ * Traduz e salva nome/descrição/categoria de produto para todos os idiomas.
+ *
+ * Body:
+ * {
+ *   "productId": "cmo...",
+ *   "name": "Morango com nutella",
+ *   "description": "...",
+ *   "category": "Doce",
+ *   "baseLocale": "pt-BR",
+ *   "sistema": "website"
+ * }
+ */
+async function cadastrarProdutoAuto(req, res, next) {
+  try {
+    const {
+      productId,
+      name,
+      description,
+      category,
+      baseLocale = "pt-BR",
+      sistema = "website",
+    } = req.body;
+
+    if (!productId || String(productId).trim() === "") {
+      return res
+        .status(400)
+        .json({ erro: "Campo obrigatório ausente: productId" });
+    }
+    if (!name || String(name).trim() === "") {
+      return res.status(400).json({ erro: "Campo obrigatório ausente: name" });
+    }
+
+    const id = String(productId).trim();
+    const safeSystem = String(sistema).trim().toLowerCase();
+    const sourceLocale = PRODUCT_LOCALES.includes(baseLocale)
+      ? baseLocale
+      : "pt-BR";
+
+    let saved = 0;
+    const results = [];
+
+    for (const locale of PRODUCT_LOCALES) {
+      const translatedName = await translateText(name, sourceLocale, locale);
+      const translatedDescription = description
+        ? await translateText(description, sourceLocale, locale)
+        : "";
+      const translatedCategory = category
+        ? await translateText(category, sourceLocale, locale)
+        : "";
+
+      const nameRecord = await repo.inserir({
+        chave: `PRODUCT_${id}_NAME`.toUpperCase(),
+        valor: translatedName,
+        codigoSistema: safeSystem,
+        codigoIdioma: locale,
+      });
+      saved += 1;
+      results.push(nameRecord);
+
+      if (description && String(description).trim() !== "") {
+        const descRecord = await repo.inserir({
+          chave: `PRODUCT_${id}_DESC`.toUpperCase(),
+          valor: translatedDescription,
+          codigoSistema: safeSystem,
+          codigoIdioma: locale,
+        });
+        saved += 1;
+        results.push(descRecord);
+      }
+
+      if (category && String(category).trim() !== "") {
+        const catRecord = await repo.inserir({
+          chave: normalizeCategoryKey(category).toUpperCase(),
+          valor: translatedCategory,
+          codigoSistema: safeSystem,
+          codigoIdioma: locale,
+        });
+        saved += 1;
+        results.push(catRecord);
+      }
+    }
+
+    return res.status(201).json({
+      mensagem: "Traduções do produto cadastradas/atualizadas com sucesso.",
+      resumo: {
+        productId: id,
+        baseLocale: sourceLocale,
+        idiomas: PRODUCT_LOCALES,
+        totalSalvos: saved,
+      },
+      dados: results,
+    });
+  } catch (err) {
+    if (err.statusCode) {
+      return res.status(err.statusCode).json({ erro: err.message });
+    }
+    next(err);
+  }
+}
+
+module.exports = { listar, cadastrar, cadastrarProdutoAuto };
