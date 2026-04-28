@@ -46,6 +46,9 @@ async function translateText(text, fromLocale, toLocale) {
   const from = TRANSLATE_CODE_MAP[fromLocale] ?? fromLocale;
   const to = TRANSLATE_CODE_MAP[toLocale] ?? toLocale;
   debugLog("translateText:start", { fromLocale, toLocale, from, to, text });
+  debugLog("translateText:providers", {
+    libretranslateEnabled: Boolean(process.env.LIBRETRANSLATE_URL),
+  });
 
   // Tenta LibreTranslate primeiro (se configurado)
   if (process.env.LIBRETRANSLATE_URL) {
@@ -70,6 +73,13 @@ async function translateText(text, fromLocale, toLocale) {
         },
         body: JSON.stringify(body),
         timeout: 10000,
+      });
+
+      debugLog("translateText:libretranslate_status", {
+        from,
+        to,
+        status: res.status,
+        ok: res.ok,
       });
 
       if (res.ok) {
@@ -97,8 +107,29 @@ async function translateText(text, fromLocale, toLocale) {
           });
           return translated;
         }
+
+        debugLog("translateText:libretranslate_rejected", {
+          from,
+          to,
+          text,
+          translated,
+          reason: translated ? "unchanged" : "empty",
+        });
+      } else {
+        const responseText = await res.text();
+        debugLog("translateText:libretranslate_non_ok", {
+          from,
+          to,
+          status: res.status,
+          body: responseText.slice(0, 300),
+        });
       }
     } catch (error) {
+      debugLog("translateText:libretranslate_error", {
+        from,
+        to,
+        message: error.message,
+      });
       console.warn(`LibreTranslate fallback to MyMemory: ${error.message}`);
     }
   }
@@ -108,7 +139,22 @@ async function translateText(text, fromLocale, toLocale) {
     const res = await fetch(
       `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(from)}|${encodeURIComponent(to)}`,
     );
-    if (!res.ok) return text;
+    debugLog("translateText:mymemory_status", {
+      from,
+      to,
+      status: res.status,
+      ok: res.ok,
+    });
+    if (!res.ok) {
+      const responseText = await res.text();
+      debugLog("translateText:mymemory_non_ok", {
+        from,
+        to,
+        status: res.status,
+        body: responseText.slice(0, 300),
+      });
+      return text;
+    }
     const data = await res.json();
     const translated = data?.responseData?.translatedText?.trim();
     debugLog("translateText:provider_selected", {
@@ -119,8 +165,16 @@ async function translateText(text, fromLocale, toLocale) {
       translated,
       match: data?.responseData?.match,
     });
+    if (!translated) {
+      debugLog("translateText:mymemory_empty", { from, to, text });
+    }
     return translated || text;
   } catch (error) {
+    debugLog("translateText:mymemory_error", {
+      from,
+      to,
+      message: error.message,
+    });
     console.warn(
       `MyMemory translation failed: ${error.message}. Returning original text.`,
     );
