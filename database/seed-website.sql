@@ -25,9 +25,7 @@ ON CONFLICT (codigo) DO NOTHING;
 -- =============================================================
 INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
 SELECT t.chave, t.valor, s.id, i.id
-FROM sistemas s
-JOIN idiomas   i ON i.codigo = t.codigo_idioma
-JOIN (VALUES
+FROM (VALUES
 
   -- ─── NAVEGAÇÃO ─────────────────────────────────────────────
   ('NAV_HOME',        'pt-BR', 'Início'),
@@ -1047,7 +1045,8 @@ JOIN (VALUES
   ('MODAL_PIN_WRONG', 'es-ES', 'PIN incorrecto. Inténtelo de nuevo.'),
   ('MODAL_PIN_WRONG', 'ar-MA', 'رقم PIN غير صحيح. حاول مرة أخرى.')
 
-) AS t(chave, codigo_idioma, valor) ON TRUE
-WHERE s.codigo = 'website'
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas  i ON i.codigo = t.codigo_idioma
 ON CONFLICT (chave, sistema_id, idioma_id)
   DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
