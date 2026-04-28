@@ -66,7 +66,12 @@ async function translateText(text, fromLocale, toLocale) {
       if (res.ok) {
         const data = await res.json();
         const translated = data?.translatedText?.trim();
-        if (translated) return translated;
+        if (
+          translated &&
+          translated.toLowerCase() !== String(text).trim().toLowerCase()
+        ) {
+          return translated;
+        }
       }
     } catch (error) {
       console.warn(`LibreTranslate fallback to MyMemory: ${error.message}`);
