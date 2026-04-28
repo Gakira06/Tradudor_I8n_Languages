@@ -11,13 +11,19 @@ function debugLog(...args) {
 }
 
 const PRODUCT_LOCALES = ["pt-BR", "pt-PT", "en-US", "it-IT", "es-ES", "ar-MA"];
-const TRANSLATE_CODE_MAP = {
-  "pt-BR": "pt-BR",
-  "pt-PT": "pt-PT",
-  "en-US": "en",
-  "it-IT": "it",
-  "es-ES": "es",
-  "ar-MA": "ar",
+const AI_TRANSLATION_MODEL =
+  process.env.AI_TRANSLATION_MODEL || "gemini-2.0-flash";
+const AI_TRANSLATION_BASE_URL = (
+  process.env.AI_TRANSLATION_BASE_URL ||
+  "https://generativelanguage.googleapis.com/v1beta/openai"
+).replace(/\/$/, "");
+const LOCALE_NAME_MAP = {
+  "pt-BR": "Portuguese (Brazil)",
+  "pt-PT": "Portuguese (Portugal)",
+  "en-US": "English (US)",
+  "it-IT": "Italian",
+  "es-ES": "Spanish (Spain)",
+  "ar-MA": "Arabic (Morocco)",
 };
 
 // Idiomas escritos da direita para a esquerda
@@ -39,147 +45,211 @@ function normalizeCategoryKey(cat) {
     .replace(/[^A-Z0-9_]/g, "")}`;
 }
 
-async function translateText(text, fromLocale, toLocale) {
-  if (!text) return "";
-  if (fromLocale === toLocale) return text;
+function normalizeAiTranslation(text) {
+  return String(text ?? "")
+    .trim()
+    .replace(/^['"`]+|['"`]+$/g, "")
+    .replace(/^Translation:\s*/i, "")
+    .trim();
+}
 
-  const from = TRANSLATE_CODE_MAP[fromLocale] ?? fromLocale;
-  const to = TRANSLATE_CODE_MAP[toLocale] ?? toLocale;
-  debugLog("translateText:start", { fromLocale, toLocale, from, to, text });
-  debugLog("translateText:providers", {
-    libretranslateEnabled: Boolean(process.env.LIBRETRANSLATE_URL),
-  });
-
-  // Tenta LibreTranslate primeiro (se configurado)
-  if (process.env.LIBRETRANSLATE_URL) {
-    try {
-      const libretranslateUrl = process.env.LIBRETRANSLATE_URL;
-      const libretranslateKey = process.env.LIBRETRANSLATE_API_KEY;
-
-      const body = {
-        q: text,
-        source_language: from,
-        target_language: to,
-      };
-
-      if (libretranslateKey) {
-        body.api_key = libretranslateKey;
-      }
-
-      const res = await fetch(libretranslateUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-        timeout: 10000,
-      });
-
-      debugLog("translateText:libretranslate_status", {
-        from,
-        to,
-        status: res.status,
-        ok: res.ok,
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        const translated = data?.translatedText?.trim();
-        debugLog("translateText:libretranslate", {
-          from,
-          to,
-          text,
-          translated,
-          unchanged:
-            String(translated || "").toLowerCase() ===
-            String(text).trim().toLowerCase(),
-        });
-        if (
-          translated &&
-          translated.toLowerCase() !== String(text).trim().toLowerCase()
-        ) {
-          debugLog("translateText:provider_selected", {
-            provider: "libretranslate",
-            from,
-            to,
-            text,
-            translated,
-          });
-          return translated;
-        }
-
-        debugLog("translateText:libretranslate_rejected", {
-          from,
-          to,
-          text,
-          translated,
-          reason: translated ? "unchanged" : "empty",
-        });
-      } else {
-        const responseText = await res.text();
-        debugLog("translateText:libretranslate_non_ok", {
-          from,
-          to,
-          status: res.status,
-          body: responseText.slice(0, 300),
-        });
-      }
-    } catch (error) {
-      debugLog("translateText:libretranslate_error", {
-        from,
-        to,
-        message: error.message,
-      });
-      console.warn(`LibreTranslate fallback to MyMemory: ${error.message}`);
-    }
+async function translateWithAI(text, fromLocale, toLocale) {
+  const apiKey = process.env.AI_TRANSLATION_API_KEY;
+  if (!apiKey) {
+    return {
+      text,
+      translated: false,
+      provider: "ai",
+      reason: "missing_api_key",
+    };
   }
 
-  // Fallback para MyMemory (sempre disponível, testado e confiável)
+  const fromName = LOCALE_NAME_MAP[fromLocale] ?? fromLocale;
+  const toName = LOCALE_NAME_MAP[toLocale] ?? toLocale;
+  const endpoint = `${AI_TRANSLATION_BASE_URL}/chat/completions`;
+
+  debugLog("translateText:ai_request", {
+    endpoint,
+    model: AI_TRANSLATION_MODEL,
+    fromLocale,
+    toLocale,
+    text,
+  });
+
   try {
-    const res = await fetch(
-      `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(from)}|${encodeURIComponent(to)}`,
-    );
-    debugLog("translateText:mymemory_status", {
-      from,
-      to,
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: AI_TRANSLATION_MODEL,
+        temperature: 0.1,
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a professional restaurant menu translator. Translate accurately, keep culinary context, preserve brand names and proper nouns when appropriate, and return only the translated text.",
+          },
+          {
+            role: "user",
+            content: [
+              `Translate from ${fromName} to ${toName}.`,
+              "Return only the translation, with no quotes, labels, or explanation.",
+              `Text: ${text}`,
+            ].join("\n"),
+          },
+        ],
+      }),
+      timeout: 30000,
+    });
+
+    debugLog("translateText:ai_status", {
+      model: AI_TRANSLATION_MODEL,
+      fromLocale,
+      toLocale,
       status: res.status,
       ok: res.ok,
     });
+
     if (!res.ok) {
       const responseText = await res.text();
-      debugLog("translateText:mymemory_non_ok", {
-        from,
-        to,
+      debugLog("translateText:ai_non_ok", {
+        model: AI_TRANSLATION_MODEL,
+        fromLocale,
+        toLocale,
         status: res.status,
-        body: responseText.slice(0, 300),
+        body: responseText.slice(0, 500),
       });
-      return text;
+      return {
+        text,
+        translated: false,
+        provider: "ai",
+        reason: "http_error",
+        status: res.status,
+      };
     }
+
     const data = await res.json();
-    const translated = data?.responseData?.translatedText?.trim();
+    const translated = normalizeAiTranslation(
+      data?.choices?.[0]?.message?.content,
+    );
+    const translatedSuccessfully =
+      Boolean(translated) &&
+      translated.toLowerCase() !== String(text).trim().toLowerCase();
+
     debugLog("translateText:provider_selected", {
-      provider: "mymemory",
-      from,
-      to,
+      provider: "ai",
+      model: AI_TRANSLATION_MODEL,
+      fromLocale,
+      toLocale,
       text,
       translated,
-      match: data?.responseData?.match,
+      translatedSuccessfully,
     });
-    if (!translated) {
-      debugLog("translateText:mymemory_empty", { from, to, text });
-    }
-    return translated || text;
+
+    return {
+      text: translated || text,
+      translated: translatedSuccessfully,
+      provider: "ai",
+      reason: translatedSuccessfully ? "success" : "unchanged-or-empty",
+      model: AI_TRANSLATION_MODEL,
+    };
   } catch (error) {
-    debugLog("translateText:mymemory_error", {
-      from,
-      to,
+    debugLog("translateText:ai_error", {
+      model: AI_TRANSLATION_MODEL,
+      fromLocale,
+      toLocale,
       message: error.message,
     });
-    console.warn(
-      `MyMemory translation failed: ${error.message}. Returning original text.`,
-    );
-    return text;
+    return {
+      text,
+      translated: false,
+      provider: "ai",
+      reason: "network_error",
+      error: error.message,
+    };
   }
+}
+
+async function translateText(text, fromLocale, toLocale) {
+  if (!text) {
+    return { text: "", translated: false, provider: null, reason: "empty" };
+  }
+  if (fromLocale === toLocale) {
+    return {
+      text,
+      translated: true,
+      provider: "source",
+      reason: "same-locale",
+    };
+  }
+
+  debugLog("translateText:start", { fromLocale, toLocale, text });
+  debugLog("translateText:providers", {
+    aiEnabled: Boolean(process.env.AI_TRANSLATION_API_KEY),
+    aiBaseUrl: AI_TRANSLATION_BASE_URL,
+    aiModel: AI_TRANSLATION_MODEL,
+  });
+
+  return translateWithAI(text, fromLocale, toLocale);
+}
+
+async function saveTranslatedValue({
+  key,
+  locale,
+  sourceLocale,
+  sourceText,
+  translationResult,
+  safeSystem,
+}) {
+  if (!sourceText || String(sourceText).trim() === "") {
+    return null;
+  }
+
+  if (locale === sourceLocale) {
+    return repo.inserir({
+      chave: key,
+      valor: sourceText,
+      codigoSistema: safeSystem,
+      codigoIdioma: locale,
+    });
+  }
+
+  if (translationResult?.translated) {
+    return repo.inserir({
+      chave: key,
+      valor: translationResult.text,
+      codigoSistema: safeSystem,
+      codigoIdioma: locale,
+    });
+  }
+
+  const existing = await repo.findByChaveSistemaEIdioma(
+    key,
+    safeSystem,
+    locale,
+  );
+  if (existing && existing.valor && existing.valor !== sourceText) {
+    debugLog("produto_auto:preserve_existing", {
+      key,
+      locale,
+      provider: translationResult?.provider,
+      reason: translationResult?.reason,
+      preservedValue: existing.valor,
+    });
+    return existing;
+  }
+
+  debugLog("produto_auto:skip_overwrite", {
+    key,
+    locale,
+    provider: translationResult?.provider,
+    reason: translationResult?.reason,
+    sourceText,
+  });
+  return null;
 }
 
 /**
@@ -348,48 +418,63 @@ async function cadastrarProdutoAuto(req, res, next) {
       const translatedName = await translateText(name, sourceLocale, locale);
       const translatedDescription = description
         ? await translateText(description, sourceLocale, locale)
-        : "";
+        : null;
       const translatedCategory = category
         ? await translateText(category, sourceLocale, locale)
-        : "";
+        : null;
 
       debugLog("produto_auto:locale_result", {
         locale,
         productId: id,
-        translatedName,
-        translatedDescription,
-        translatedCategory,
+        translatedName: translatedName?.text,
+        translatedDescription: translatedDescription?.text,
+        translatedCategory: translatedCategory?.text,
+        translatedNameOk: translatedName?.translated,
+        translatedDescriptionOk: translatedDescription?.translated,
+        translatedCategoryOk: translatedCategory?.translated,
       });
 
-      const nameRecord = await repo.inserir({
-        chave: `PRODUCT_${id}_NAME`.toUpperCase(),
-        valor: translatedName,
-        codigoSistema: safeSystem,
-        codigoIdioma: locale,
+      const nameRecord = await saveTranslatedValue({
+        key: `PRODUCT_${id}_NAME`.toUpperCase(),
+        locale,
+        sourceLocale,
+        sourceText: name,
+        translationResult: translatedName,
+        safeSystem,
       });
-      saved += 1;
-      results.push(nameRecord);
+      if (nameRecord) {
+        saved += 1;
+        results.push(nameRecord);
+      }
 
       if (description && String(description).trim() !== "") {
-        const descRecord = await repo.inserir({
-          chave: `PRODUCT_${id}_DESC`.toUpperCase(),
-          valor: translatedDescription,
-          codigoSistema: safeSystem,
-          codigoIdioma: locale,
+        const descRecord = await saveTranslatedValue({
+          key: `PRODUCT_${id}_DESC`.toUpperCase(),
+          locale,
+          sourceLocale,
+          sourceText: description,
+          translationResult: translatedDescription,
+          safeSystem,
         });
-        saved += 1;
-        results.push(descRecord);
+        if (descRecord) {
+          saved += 1;
+          results.push(descRecord);
+        }
       }
 
       if (category && String(category).trim() !== "") {
-        const catRecord = await repo.inserir({
-          chave: normalizeCategoryKey(category).toUpperCase(),
-          valor: translatedCategory,
-          codigoSistema: safeSystem,
-          codigoIdioma: locale,
+        const catRecord = await saveTranslatedValue({
+          key: normalizeCategoryKey(category).toUpperCase(),
+          locale,
+          sourceLocale,
+          sourceText: category,
+          translationResult: translatedCategory,
+          safeSystem,
         });
-        saved += 1;
-        results.push(catRecord);
+        if (catRecord) {
+          saved += 1;
+          results.push(catRecord);
+        }
       }
     }
 

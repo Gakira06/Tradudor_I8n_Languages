@@ -163,8 +163,10 @@ fetch(`${I18N_URL}/traducoes/produto-auto`, {
    # Vercel auto-deploya
    ```
 
-3. **Variáveis de Ambiente (opcional):**
-   - Se usar LibreTranslate self-hosted, adicione `LIBRETRANSLATE_URL` no painel da plataforma
+3. **Variáveis de Ambiente:**
+   - Configure `AI_TRANSLATION_API_KEY` no painel da plataforma
+   - Opcionalmente configure `AI_TRANSLATION_MODEL`
+   - Opcionalmente configure `AI_TRANSLATION_BASE_URL` se usar um provider diferente do Gemini compatível
 
 ## 📊 Resposta do Servidor
 

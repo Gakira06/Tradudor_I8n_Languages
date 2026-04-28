@@ -27,6 +27,24 @@ async function findBySistemaEIdioma(codigoSistema, codigoIdioma) {
   return rows;
 }
 
+async function findByChaveSistemaEIdioma(chave, codigoSistema, codigoIdioma) {
+  const sql = `
+    SELECT t.id, t.chave, t.valor, t.criado_em, t.atualizado_em,
+           s.codigo AS sistema, i.codigo AS idioma
+    FROM   traducoes t
+    JOIN   sistemas  s ON s.id = t.sistema_id
+    JOIN   idiomas   i ON i.id = t.idioma_id
+    WHERE  t.chave  = $1
+      AND  s.codigo = $2
+      AND  i.codigo = $3
+      AND  s.ativo  = TRUE
+      AND  i.ativo  = TRUE
+    LIMIT 1
+  `;
+  const { rows } = await db.query(sql, [chave, codigoSistema, codigoIdioma]);
+  return rows[0] || null;
+}
+
 /**
  * Busca os metadados do idioma (direcao, etc.).
  * Retorna o objeto ou null se não encontrado/inativo.
@@ -131,6 +149,7 @@ async function inserir({ chave, valor, codigoSistema, codigoIdioma }) {
 
 module.exports = {
   findBySistemaEIdioma,
+  findByChaveSistemaEIdioma,
   findIdioma,
   findSistema,
   findComFallback,
