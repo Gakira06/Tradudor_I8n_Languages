@@ -2,6 +2,14 @@
 
 const repo = require("../repositories/traducoes.repository");
 
+const I18N_DEBUG = process.env.I18N_DEBUG === "1";
+
+function debugLog(...args) {
+  if (I18N_DEBUG) {
+    console.log("[I18N_DEBUG]", ...args);
+  }
+}
+
 const PRODUCT_LOCALES = ["pt-BR", "pt-PT", "en-US", "it-IT", "es-ES", "ar-MA"];
 const TRANSLATE_CODE_MAP = {
   "pt-BR": "pt-BR",
@@ -37,6 +45,7 @@ async function translateText(text, fromLocale, toLocale) {
 
   const from = TRANSLATE_CODE_MAP[fromLocale] ?? fromLocale;
   const to = TRANSLATE_CODE_MAP[toLocale] ?? toLocale;
+  debugLog("translateText:start", { fromLocale, toLocale, from, to, text });
 
   // Tenta LibreTranslate primeiro (se configurado)
   if (process.env.LIBRETRANSLATE_URL) {
@@ -66,10 +75,26 @@ async function translateText(text, fromLocale, toLocale) {
       if (res.ok) {
         const data = await res.json();
         const translated = data?.translatedText?.trim();
+        debugLog("translateText:libretranslate", {
+          from,
+          to,
+          text,
+          translated,
+          unchanged:
+            String(translated || "").toLowerCase() ===
+            String(text).trim().toLowerCase(),
+        });
         if (
           translated &&
           translated.toLowerCase() !== String(text).trim().toLowerCase()
         ) {
+          debugLog("translateText:provider_selected", {
+            provider: "libretranslate",
+            from,
+            to,
+            text,
+            translated,
+          });
           return translated;
         }
       }
@@ -86,6 +111,14 @@ async function translateText(text, fromLocale, toLocale) {
     if (!res.ok) return text;
     const data = await res.json();
     const translated = data?.responseData?.translatedText?.trim();
+    debugLog("translateText:provider_selected", {
+      provider: "mymemory",
+      from,
+      to,
+      text,
+      translated,
+      match: data?.responseData?.match,
+    });
     return translated || text;
   } catch (error) {
     console.warn(
@@ -243,6 +276,17 @@ async function cadastrarProdutoAuto(req, res, next) {
       ? baseLocale
       : "pt-BR";
 
+    debugLog("produto_auto:start", {
+      productId: id,
+      sourceLocale,
+      sistema: safeSystem,
+      hasDescription: Boolean(description),
+      hasCategory: Boolean(category),
+      name,
+      description,
+      category,
+    });
+
     let saved = 0;
     const results = [];
 
@@ -254,6 +298,14 @@ async function cadastrarProdutoAuto(req, res, next) {
       const translatedCategory = category
         ? await translateText(category, sourceLocale, locale)
         : "";
+
+      debugLog("produto_auto:locale_result", {
+        locale,
+        productId: id,
+        translatedName,
+        translatedDescription,
+        translatedCategory,
+      });
 
       const nameRecord = await repo.inserir({
         chave: `PRODUCT_${id}_NAME`.toUpperCase(),
@@ -298,6 +350,10 @@ async function cadastrarProdutoAuto(req, res, next) {
       dados: results,
     });
   } catch (err) {
+    debugLog("produto_auto:error", {
+      message: err?.message,
+      stack: err?.stack,
+    });
     if (err.statusCode) {
       return res.status(err.statusCode).json({ erro: err.message });
     }
