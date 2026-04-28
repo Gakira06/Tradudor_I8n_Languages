@@ -2,6 +2,7 @@ CART_TITLE|Seu Carrinho
 CART_CLOSE|Fechar
 CART_EMPTY|Seu carrinho está vazio.
 CART_NOTES_LABEL|Observação
+CART_NOTES_PH|Ex: sem cebola, sem azeitona...
 BTN_REMOVE|remover
 CART_SUBTOTAL|Subtotal
 CART_FREIGHT|Frete
@@ -22,14 +23,23 @@ BTN_CANCEL|Cancelar
 ADMIN_MESAS_BACK_PANEL|← Painel Admin
 ADMIN_MESAS_TITLE|Mesas
 ADMIN_MESAS_HELP_TITLE|Como achar o ID da maquininha?
+ADMIN_MESAS_HELP_TEXT_1|No app do Mercado Pago
+ADMIN_MESAS_HELP_TEXT_2|Seu negócio → Point
+ADMIN_MESAS_HELP_TEXT_3|selecione o dispositivo → copie o ID que aparece (ex:
 ADMIN_MESAS_NEW_BUTTON|Nova Mesa
 ADMIN_MESAS_LOADING|Carregando mesas...
 ADMIN_MESAS_LOAD_ERROR|Falha ao carregar mesas.
 ADMIN_MESAS_EMPTY|Nenhuma mesa cadastrada ainda.
+ADMIN_MESAS_EMPTY_HINT_1|Clique em
+ADMIN_MESAS_EMPTY_HINT_2|para começar.
 ADMIN_HISTORY_PAYMENT_MARKED|Pagamento marcado como aprovado
 ADMIN_HISTORY_PAYMENT_UPDATE_ERROR|Falha ao atualizar pagamento
 ADMIN_HISTORY_TITLE|Histórico de Pedidos
+ADMIN_HISTORY_SUBTITLE|Todos os pedidos — entregues, cancelados e em andamento.
 ADMIN_HISTORY_BACK|← Admin
+ADMIN_HISTORY_REFUND_NEEDS_SINGLE|pedido cancelado precisa de estorno
+ADMIN_HISTORY_REFUND_NEEDS_MULTI|pedidos cancelados precisam de estorno
+ADMIN_HISTORY_REFUND_HINT|O cliente já havia pago e o pagamento foi aprovado.
 ADMIN_HISTORY_SHOW_ALL|Ver todos
 ADMIN_HISTORY_SHOW_REFUNDS|Ver só estornos
 ADMIN_HISTORY_FILTERS|Filtros
@@ -40,42 +50,61 @@ ADMIN_HISTORY_FILTER|Filtrar
 ADMIN_HISTORY_CLEAR|Limpar
 ADMIN_HISTORY_FOUND_SINGLE|pedido encontrado
 ADMIN_HISTORY_FOUND_MULTI|pedidos encontrados
+ADMIN_HISTORY_ONLY_REFUNDS_SUFFIX| — mostrando apenas estornos pendentes
+ADMIN_HISTORY_LOAD_ERROR|Erro ao carregar histórico de pedidos.
 ADMIN_HISTORY_EMPTY|Nenhum pedido encontrado.
 ADMIN_HISTORY_REFUND_PENDING|ESTORNO PENDENTE
 ADMIN_HISTORY_MARK_PAID|✓ Pago
+ADMIN_HISTORY_REFUND_WARNING|Pedido cancelado após pagamento aprovado — realizar estorno ao cliente.
 ADMIN_HISTORY_ADDRESS|Endereço
 ADMIN_HISTORY_NOTES|Obs
 ADMIN_HISTORY_HALF_HALF|Meio a Meio
 ADMIN_HISTORY_PIZZA|Pizza
 ADMIN_HISTORY_TOTAL|Total
 ADMIN_PANEL_TITLE|Painel Admin
+ADMIN_PANEL_SUBTITLE|Visao operacional para equipe da Pizzaria Fellice.
 ADMIN_PANEL_BACK_HOME|← Início
+ADMIN_PANEL_OVERDUE_COUNT|{{count}} pedidos exigem atencao imediata
 ADMIN_PANEL_NO_DELAYS|Operacao sem atrasos no momento
+ADMIN_PANEL_ALERTS_COUNT|{{count}} novos alertas da equipe
 ADMIN_PANEL_NO_ALERTS|Nenhum alerta novo
 ADMIN_PANEL_DESKTOP_LABEL|Desktop
 ADMIN_PANEL_DESKTOP_ON|notificacoes ativas
 ADMIN_PANEL_DESKTOP_OFF|notificacoes inativas
 ADMIN_PANEL_CARD_PRODUCTS_TITLE|Gerenciar Produtos
+ADMIN_PANEL_CARD_PRODUCTS_DESC|Cadastrar, editar e desativar itens do cardapio
 ADMIN_PANEL_CARD_SALES_TITLE|Análise de Vendas
+ADMIN_PANEL_CARD_SALES_DESC|Receita, ticket medio e sabores mais vendidos
 ADMIN_PANEL_CARD_KITCHEN_TITLE|Painel da Cozinha
+ADMIN_PANEL_CARD_KITCHEN_DESC|Ver pedidos ativos e avançar status
 ADMIN_PANEL_CARD_HISTORY_TITLE|Histórico de Pedidos
+ADMIN_PANEL_CARD_HISTORY_DESC|Todos os pedidos, cancelamentos e estornos
 ADMIN_PANEL_CARD_USERS_TITLE|Criar Usuário
+ADMIN_PANEL_CARD_USERS_DESC|Cadastrar motoboy, cozinha, funcionário ou admin
 ADMIN_PANEL_CARD_TABLES_TITLE|Mesas
+ADMIN_PANEL_CARD_TABLES_DESC|Cadastrar mesas, maquininhas e gerar QR codes
 ADMIN_PANEL_LOADING|Carregando dados...
 ADMIN_PANEL_LOAD_ERROR|Falha ao carregar dados do painel.
+ADMIN_PANEL_PRIORITY_QUEUE_TITLE|Fila Prioritaria (preview)
 ADMIN_PANEL_DESKTOP_BUTTON_ON|ligado
 ADMIN_PANEL_DESKTOP_BUTTON_OFF|desligado
+ADMIN_PANEL_MARK_ALERTS_READ|Marcar alertas como vistos
 ADMIN_PANEL_STATUS_LABEL|Status
+ADMIN_PANEL_NO_ORDERS|Sem pedidos para exibir no momento.
 ADMIN_PANEL_PENDING_PAYMENTS_TITLE|Pagamentos Pendentes
 ADMIN_PANEL_MESA_LABEL|Mesa
+ADMIN_PANEL_NO_PENDING_PAYMENTS|Nenhuma mesa com pagamento pendente.
 ADMIN_PRODUCTS_UPDATED|Produto atualizado!
 ADMIN_PRODUCTS_CREATED|Produto criado!
 ADMIN_PRODUCTS_SAVE_ERROR|Erro ao salvar produto
 ADMIN_PRODUCTS_EDIT_TITLE|Editar Produto
 ADMIN_PRODUCTS_NEW_TITLE|Novo Produto
 ADMIN_PRODUCTS_NAME_LABEL|Nome *
+ADMIN_PRODUCTS_NAME_PLACEHOLDER|Ex: Calabresa Imperial
 ADMIN_PRODUCTS_DESCRIPTION_LABEL|Descrição
+ADMIN_PRODUCTS_DESCRIPTION_PLACEHOLDER|Breve descrição do sabor...
 ADMIN_PRODUCTS_CATEGORY_LABEL|Categoria
+ADMIN_PRODUCTS_CATEGORY_PLACEHOLDER|Ex: Doce, Salgado, Bebidas...
 ADMIN_PRODUCTS_TYPE_LABEL|Tipo do produto
 ADMIN_PRODUCTS_TYPE_PIZZA|Pizza
 ADMIN_PRODUCTS_TYPE_CRUST|Borda recheada
@@ -98,6 +127,7 @@ EDIT|Editar
 ADMIN_PRODUCTS_DISABLE|Desativar
 ADMIN_PRODUCTS_RESTORE|Reativar
 ADMIN_PRODUCTS_TITLE|Produtos
+ADMIN_PRODUCTS_SUBTITLE|Gerencie o cardápio da Pizzaria Fellice
 ADMIN_PRODUCTS_NEW_BUTTON|Novo Produto
 ADMIN_PRODUCTS_LOAD_ERROR|Falha ao carregar produtos.
 ADMIN_PRODUCTS_ACTIVE_COUNT|{{count}} ativos
@@ -110,6 +140,9 @@ ADMIN_USERS_FIELD_EMAIL|E-mail
 ADMIN_USERS_FIELD_PHONE|Telefone
 ADMIN_USERS_FIELD_PASSWORD|Senha
 ADMIN_USERS_FIELD_ROLE|Perfil
+ADMIN_USERS_CREATE_ERROR|Erro ao criar usuário. Verifique os dados.
+ADMIN_USERS_PHONE_MIN_DIGITS|Telefone deve ter pelo menos 10 dígitos.
+ADMIN_USERS_EMAIL_OR_PHONE_REQUIRED|Informe e-mail ou telefone para que o usuário possa fazer login.
 ADMIN_USERS_BACK_PANEL|← Painel Admin
 ADMIN_USERS_TITLE|Criar Usuário
 ADMIN_USERS_ROLE_LABEL|Perfil *
@@ -118,12 +151,16 @@ ADMIN_USERS_NAME_PLACEHOLDER|Ex: João Silva
 ADMIN_USERS_EMAIL_LABEL|E-mail
 ADMIN_USERS_EMAIL_PLACEHOLDER|ex@email.com
 ADMIN_USERS_PHONE_LABEL|Telefone
+ADMIN_USERS_PHONE_PLACEHOLDER|(11) 99999-9999
+ADMIN_USERS_PHONE_HINT|Pode ser usado para login no lugar do e-mail.
 ADMIN_USERS_PASSWORD_LABEL|Senha *
+ADMIN_USERS_PASSWORD_PLACEHOLDER|Mínimo 6 caracteres
 ADMIN_USERS_CREATING|Criando...
 ADMIN_USERS_CREATE_BUTTON|Criar
 ADMIN_USERS_CREATE_ANOTHER|Criar outro usuário
 SIZE_BROTO|Broto
 SIZE_GRANDE|Grande
+FIRST_HALF_SAVED|Primeira metade salva. Escolha o próximo sabor.
 PIZZA_HALF_HALF|Pizza Meio a Meio
 SIZE_INTEIRA|Inteira
 SIZE_METADE|Metade
@@ -134,16 +171,25 @@ CARDAPIO_CAT_ALL|Todos
 CARDAPIO_SINCE|Desde 1997 · 27 anos de tradição
 CARDAPIO_TITLE|Nosso Cardápio
 CARDAPIO_SEARCH_LABEL|Buscar no cardápio
+CARDAPIO_SEARCH_PH|Ex: calabresa, frango, doce...
 FIRST_HALF_SELECTED_MSG|Primeira metade selecionada:
+FIRST_HALF_CHOOSE_NEXT|Escolha a próxima pizza para completar.
 CANCEL_HALF|Cancelar metade
 CARDAPIO_TOP_LABEL|Favoritas da casa
 CARDAPIO_TOP_TITLE|Mais Pedidas
 CARDAPIO_TOP_DESC|Os sabores que mais saem no momento
+CARDAPIO_ERROR|Não foi possível carregar o cardápio. Tente novamente.
 CARDAPIO_EMPTY_CAT|Nenhum item nesta categoria.
+FOOTER_COPYRIGHT|Pizzaria Fellice © 2024 · O seu momento de ser feliz!
 CARDAPIO_PAYMENT_PENDING|Pagamento pendente
 CHECKOUT_WAITING_TITLE|Aguardando pagamento
+CHECKOUT_WAITING_DESC|A página do Mercado Pago foi aberta em outra aba. Conclua o pagamento por lá e aguarde a confirmação aqui.
+CHECKOUT_WAITING_UPDATE|Esta página atualiza automaticamente a cada poucos segundos.
 BTN_BACK|← Voltar
 CHECKOUT_EMPTY|Seu carrinho está vazio.
+CHECKOUT_DELIVERY|🛵 Entrega
+CHECKOUT_PICKUP|🏠 Retirada no local
+CHECKOUT_PICKUP_FREE|Retirada no local — Frete grátis
 CHECKOUT_ADDRESS_TITLE|Endereço de Entrega
 CHECKOUT_CEP|CEP
 CHECKOUT_NUMBER|Número
@@ -153,22 +199,30 @@ CHECKOUT_NEIGHBORHOOD|Bairro
 CHECKOUT_REFERENCE|Ponto de referência
 CHECKOUT_NOTES_LABEL|Observações do pedido
 BTN_CALC_FREIGHT_LOADING|Calculando frete...
+BTN_CALC_FREIGHT|Calcular Frete 🛵
 CHECKOUT_RETURN_CONFIRM_ERROR|Erro ao confirmar
 CHECKOUT_RETURN_SUCCESS_TITLE|Pagamento confirmado!
+CHECKOUT_RETURN_SUCCESS_SUBTITLE|Seu pedido foi recebido e já está sendo preparado com carinho.
 CHECKOUT_RETURN_ORDER_PREFIX|Pedido
 CHECKOUT_RETURN_SUCCESS_BUTTON|Acompanhar meu pedido
 CHECKOUT_RETURN_PENDING_TITLE|Pagamento em análise
+CHECKOUT_RETURN_PENDING_SUBTITLE|Seu pagamento está sendo processado. Assim que confirmado, o preparo será iniciado.
 CHECKOUT_RETURN_PENDING_BUTTON|Ver meus pedidos
 CHECKOUT_RETURN_FAILURE_TITLE|Pagamento não concluído
+CHECKOUT_RETURN_FAILURE_SUBTITLE|Houve um problema com o pagamento. Seu carrinho ainda está salvo.
 CHECKOUT_RETURN_FAILURE_BUTTON|Tentar novamente
 CHECKOUT_RETURN_BACK_MENU|Voltar ao cardápio
 APP_BRAND_NAME|Pizzaria Fellice
 CLIENT_DASHBOARD_FILTER_ALL|Todos
+CLIENT_DASHBOARD_REPEAT_ERROR|Nao foi possivel repetir este pedido.
+CLIENT_DASHBOARD_REPEAT_SUCCESS|Pedido adicionado novamente ao carrinho.
 CLIENT_DASHBOARD_HELLO|Ola
 CLIENT_DASHBOARD_CLIENT|Cliente
 CLIENT_DASHBOARD_LOAD_ERROR|Erro ao carregar pedidos.
 CLIENT_DASHBOARD_EMPTY_ALL|Voce ainda nao possui pedidos.
 CLIENT_DASHBOARD_ORDER_PREFIX|Pedido
+CLIENT_DASHBOARD_DELIVERY_CODE_LABEL|Código de confirmação de entrega
+CLIENT_DASHBOARD_DELIVERY_CODE_HINT|Informe este código ao motoboy para confirmar o recebimento
 CLIENT_DASHBOARD_HALF_HALF|Meio a Meio
 CLIENT_DASHBOARD_PIZZA|Pizza
 CLIENT_DASHBOARD_CRUST|Borda
@@ -180,9 +234,16 @@ CLIENT_DASHBOARD_CONFIRM|Confirmar?
 YES|Sim
 NO|Não
 DELETE|Excluir
+HOME_SINCE_1997|Desde 1997 · 27 anos de tradição italiana
+HOME_HERO_TITLE_1|Autêntica
+HOME_HERO_TITLE_2|pizza italiana
+HOME_HERO_DESC|Massa de fermentação lenta, ingredientes selecionados e o sabor que faz você se sentir feliz.
 HOME_BTN_ORDER|Fazer Pedido Agora
 HOME_ABOUT_LABEL|Nossa história
 HOME_ABOUT_TITLE|Pizzaria Fellice – 27 Anos de Tradição
+HOME_ABOUT_P1|Desde 1997, a Pizzaria Fellice é sinônimo de qualidade e sabor. Combinamos ingredientes frescos e selecionados com receitas exclusivas para criar pizzas que encantam a todos. Seja em nosso salão, que oferece um ambiente aconchegante para momentos especiais, ou através do nosso eficiente serviço de delivery, garantimos uma experiência gastronômica única.
+HOME_ABOUT_P2|Além das nossas pizzas, oferecemos uma deliciosa variedade de porções, beirutes, petiscos, batatas e sobremesas, tudo preparado com o mesmo cuidado e dedicação que nos tornaram referência na região.
+HOME_ABOUT_P3|Descubra por que a Pizzaria Fellice é a escolha certa para quem busca tradição, qualidade e um toque de exclusividade. Visite-nos ou faça seu pedido online e saboreie o melhor da gastronomia italiana com o nosso toque especial.
 HOME_BTN_MENU|Ver Cardápio Completo
 KITCHEN_UPDATING|Atualizando...
 KITCHEN_ADVANCE_TO_TABLE|Levar para a Mesa
@@ -193,8 +254,12 @@ KITCHEN_PICKUP|Retirada
 KITCHEN_DELIVERY|Entrega
 KITCHEN_PAYMENT_PENDING|Pag. pendente
 KITCHEN_NEW_ORDER|Novo pedido
+KITCHEN_OVERDUE_ALERT|{{count}} pedido(s) entraram em atraso
 KITCHEN_TITLE|Cozinha
+KITCHEN_UPDATED_AT|Atualizado em {{time}} • tempo real com fallback de 2 min
+KITCHEN_OVERDUE_COUNT|{{count}} pedidos em atraso
 KITCHEN_NO_OVERDUE|Sem pedidos em atraso
+KITCHEN_UNREAD_ALERTS|{{count}} novos alertas nao lidos
 KITCHEN_NO_ALERTS|Nenhum alerta pendente
 KITCHEN_CLEAR_ALERTS|Limpar alertas
 KITCHEN_SOUND|Som
@@ -202,14 +267,18 @@ KITCHEN_ON|ligado
 KITCHEN_OFF|desligado
 KITCHEN_LIVE|Ao vivo
 KITCHEN_ORDERS_IN_STAGE|Pedidos nesta etapa
+KITCHEN_NEW_ORDER_ARRIVED|Novo pedido {{id}} chegou na fila
+KITCHEN_HIGHLIGHT_SECONDS|Destaque ativo por {{seconds}} segundos.
 BTN_CLOSE|Fechar
 KITCHEN_LOAD_ERROR|Falha ao carregar pedidos.
+KITCHEN_DROP_TO_STAGE|Solte aqui para mover para {{stage}}
 KITCHEN_NO_ORDER|Nenhum pedido
 KITCHEN_NO_ACTIVE_ORDERS|Sem pedidos ativos no momento.
 LOGIN_TAGLINE|O seu momento de ser feliz!
 LOGIN_ENTER|Entrar
 LOGIN_CREATE_ACCOUNT|Criar conta
 LOGIN_TITLE|Bem-vindo
+LOGIN_SUBTITLE|Entre com email ou telefone para continuar.
 LOGIN_PH_IDENTIFIER|Email ou telefone
 LOGIN_PH_PASSWORD|Senha
 LOGIN_BTN_LOADING|Entrando...
@@ -217,13 +286,19 @@ LOGIN_BTN|Entrar
 REG_TITLE|Criar conta
 REG_SUBTITLE|Preencha os dados para se cadastrar.
 REG_PH_NAME|Nome completo
+REG_PH_EMAIL|Email (opcional se informar telefone)
+REG_PH_PHONE|Telefone (opcional se informar email)
 REG_NOTE|* Informe ao menos email ou telefone
+REG_PH_PASSWORD|Senha (mínimo 6 caracteres)
 REG_PH_ADDRESS|Endereço de entrega
 REG_BTN_LOADING|Criando conta...
 REG_BTN|Criar conta
 LOGIN_BACK|← Voltar para o cardápio
 MESA_ACCESS_LOADING|Identificando mesa...
 MESA_ACCESS_INVALID_QR_TITLE|QR Code inválido
+MESA_ACCESS_INVALID_QR_TEXT_1|Este QR code expirou ou não é mais válido.
+MESA_ACCESS_INVALID_QR_TEXT_2|Peça para um atendente gerar um novo.
+MESA_CHECKOUT_PAYMENT_CONFIRMED|Pagamento confirmado! 🍕
 MESA_PIX_TITLE|Pagar com PIX
 MESA_PIX_GENERATING|Gerando QR Code...
 MESA_PIX_ERROR|Erro ao gerar PIX. Tente novamente.
@@ -237,6 +312,7 @@ MESA_TERMINAL_SEND_ERROR|Erro ao enviar para maquininha.
 MESA_TERMINAL_TITLE|Pagar na Maquininha
 MESA_TERMINAL_SENDING|Enviando...
 MESA_TERMINAL_SEND_BUTTON|Enviar para maquininha
+MESA_TERMINAL_WAITING|Aguardando pagamento na maquininha...
 MESA_CHECKOUT_ORDER_SENT|Pedido enviado para a cozinha!
 MESA_CHECKOUT_ORDER_ERROR|Erro ao fazer pedido.
 MESA_CHECKOUT_VIEW_MENU|Ver cardápio
@@ -248,6 +324,7 @@ MESA_CHECKOUT_BACK_MENU|← Cardápio
 MESA_CHECKOUT_TABLE|Mesa
 MESA_CHECKOUT_YOUR_ORDER|Seu pedido
 MESA_CHECKOUT_NOTES_LABEL|Observações (opcional)
+MESA_CHECKOUT_NOTES_PLACEHOLDER|Ex: sem cebola, massa fina...
 MESA_CHECKOUT_SENDING|Enviando...
 MESA_CHECKOUT_CONFIRM_ORDER|Confirmar pedido
 MESA_CHECKOUT_PAY_NOW|Deseja pagar agora?
@@ -255,23 +332,34 @@ MESA_CHECKOUT_PIX_SHORT|PIX
 MESA_CHECKOUT_TERMINAL_SHORT|Maquininha
 MESA_CHECKOUT_PAY_LATER|Pagar depois
 MOTOBOY_DELIVERY_CONFIRMED|Entrega confirmada com sucesso.
+MOTOBOY_DELIVERY_CONFIRM_ERROR|Não foi possível confirmar a entrega.
 MOTOBOY_CONFIRM_PAYMENT_TITLE|Confirmar pagamento?
+MOTOBOY_CONFIRM_PAYMENT_TEXT|Marque como pago somente após receber o valor do cliente.
+MOTOBOY_CONFIRM_PAYMENT_YES|Sim, marcar como pago
 MOTOBOY_PAYMENT_MARKED|Pagamento marcado como aprovado.
+MOTOBOY_PAYMENT_CONFIRM_ERROR|Não foi possível confirmar o pagamento.
 MOTOBOY_TITLE|Entregas
 MOTOBOY_REFRESH|Atualizar
 MOTOBOY_LOADING|Carregando...
+MOTOBOY_LOAD_ERROR|Erro ao carregar pedidos. Tente atualizar.
+MOTOBOY_EMPTY|Nenhum pedido pronto para entrega no momento.
+MOTOBOY_AUTO_REFRESH_HINT|Esta página atualiza automaticamente a cada 20 segundos.
 MOTOBOY_ORDER_PREFIX|Pedido
 MOTOBOY_DELIVERY_FEE|Frete
 MOTOBOY_ADDRESS|Endereço
 MOTOBOY_ORDER_TOTAL|Total do pedido
 MOTOBOY_ALREADY_PAID|Já pago
+MOTOBOY_COLLECT_ON_DELIVERY|Cobrar cliente na entrega
 MOTOBOY_SAVING|Salvando...
 MOTOBOY_MARK_PAID|Marcar como pago
 MOTOBOY_GOOGLE_MAPS|Google Maps
 MOTOBOY_WAZE|Waze
+MOTOBOY_SEARCH_ADDRESS|Buscar endereço no Google Maps
+MOTOBOY_CONFIRM_DELIVERY_CODE|Confirmar entrega com código
 MOTOBOY_CODE_PLACEHOLDER|Ex.: 1234
 MOTOBOY_CONFIRMING|Confirmando...
 MOTOBOY_CONFIRM|Confirmar
+MOTOBOY_MARK_PAID_FIRST|Para confirmar a entrega, marque o pedido como pago primeiro.
 MONTH_SHORT_JAN|Jan
 MONTH_SHORT_FEB|Fev
 MONTH_SHORT_MAR|Mar
@@ -297,11 +385,15 @@ MONTH_LABEL_OCT|Outubro
 MONTH_LABEL_NOV|Novembro
 MONTH_LABEL_DEC|Dezembro
 SALES_ANALYTICS_TITLE|Análise de Vendas
+SALES_ANALYTICS_SUBTITLE|Receita, volume de pedidos e sabores mais vendidos em tempo real.
 SALES_ANALYTICS_FULL_YEAR|Ano todo
 SALES_ANALYTICS_BACK_PANEL|Painel
 SALES_ANALYTICS_GO_PRODUCTS|Produtos
+SALES_ANALYTICS_LOAD_ERROR|Falha ao carregar a análise de vendas.
 SALES_ANALYTICS_REVENUE_TOTAL|Receita Total
+SALES_ANALYTICS_REVENUE_HINT|Pedidos com pagamento aprovado
 SALES_ANALYTICS_COST_TOTAL|Custo Total
+SALES_ANALYTICS_COST_HINT|Soma do preço de custo dos itens
 SALES_ANALYTICS_PROFIT_TOTAL|Lucro Líquido
 SALES_ANALYTICS_PROFIT_HINT|Receita − Custo
 SALES_ANALYTICS_TODAY|Hoje
@@ -309,9 +401,14 @@ SALES_ANALYTICS_COST_PREFIX|Custo
 SALES_ANALYTICS_PROFIT_PREFIX|Lucro
 SALES_ANALYTICS_MONTH|Mês
 SALES_ANALYTICS_AVG_TICKET|Ticket Médio
+SALES_ANALYTICS_TICKET_HINT|{{paid}} pagos de {{total}} totais
 SALES_ANALYTICS_BY_MONTH|Por mês
 SALES_ANALYTICS_LEGEND_REVENUE|Receita
 SALES_ANALYTICS_LEGEND_COST|Custo
 SALES_ANALYTICS_LEGEND_PROFIT|Lucro
 SALES_ANALYTICS_STATUS_TITLE|Status dos Pedidos
+SALES_ANALYTICS_STATUS_PAID|Pagos (aprovados)
 SALES_ANALYTICS_TOP_FLAVORS|Top Sabores
+SALES_ANALYTICS_TOP_FLAVORS_HINT|Baseado em pedidos pagos
+SALES_ANALYTICS_SALES_COUNT|{{count}} vendas
+SALES_ANALYTICS_NO_PAID_ORDERS|Ainda não há pedidos pagos para análise.
