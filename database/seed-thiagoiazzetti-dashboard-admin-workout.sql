@@ -216,6 +216,156 @@ JOIN idiomas i ON i.codigo = t.codigo_idioma
 ON CONFLICT (chave, sistema_id, idioma_id)
 DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
 
+-- ============================================================
+-- Complemento: chaves restantes do AdminDashboardPage
+-- Base pt-BR replicada para os 6 idiomas (fallback consistente)
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT k.chave, k.valor_ptbr, s.id, i.id
+FROM (VALUES
+  ('ADMIN_CHAT_DIET_FORWARDED_THIAGOIAZZETTI', 'Dieta encaminhada'),
+  ('ADMIN_CHAT_FORWARD_DIET_THIAGOIAZZETTI', 'Encaminhar dieta'),
+  ('ADMIN_CHAT_FORWARD_WORKOUT_THIAGOIAZZETTI', 'Encaminhar treino'),
+  ('ADMIN_CHAT_NO_EMAIL_THIAGOIAZZETTI', 'sem e-mail'),
+  ('ADMIN_CHAT_SEND_THIAGOIAZZETTI', 'Enviar'),
+  ('ADMIN_CHAT_WORKOUT_FORWARDED_THIAGOIAZZETTI', 'Treino encaminhado'),
+  ('ADMIN_DASH_ACTIVE_STUDENT_THIAGOIAZZETTI', 'aluno ativo'),
+  ('ADMIN_DASH_BIRTHDATE_THIAGOIAZZETTI', 'Nascimento'),
+  ('ADMIN_DASH_CANCEL_THIAGOIAZZETTI', 'Cancelar'),
+  ('ADMIN_DASH_COL_DUE_DATE_THIAGOIAZZETTI', 'Vencimento'),
+  ('ADMIN_DASH_COL_MONTHLY_THIAGOIAZZETTI', 'Mensalidade'),
+  ('ADMIN_DASH_COL_PHONE_THIAGOIAZZETTI', 'Telefone'),
+  ('ADMIN_DASH_CREATE_PLAN_BUTTON_THIAGOIAZZETTI', 'Criar Plano'),
+  ('ADMIN_DASH_CREATE_PLAN_THIAGOIAZZETTI', 'Criar novo plano'),
+  ('ADMIN_DASH_CREATE_STUDENT_BUTTON_THIAGOIAZZETTI', 'Criar Aluno'),
+  ('ADMIN_DASH_CREATE_STUDENT_THIAGOIAZZETTI', 'Cadastrar novo aluno'),
+  ('ADMIN_DASH_EDIT_STUDENT_THIAGOIAZZETTI', 'Editar aluno'),
+  ('ADMIN_DASH_HEADER_LABEL_THIAGOIAZZETTI', 'Painel'),
+  ('ADMIN_DASH_HEADER_TITLE_THIAGOIAZZETTI', 'Visao Geral'),
+  ('ADMIN_DASH_LOAD_ERROR_THIAGOIAZZETTI', 'Erro ao carregar dashboard'),
+  ('ADMIN_DASH_LOADING_THIAGOIAZZETTI', 'Carregando...'),
+  ('ADMIN_DASH_NO_EMAIL_THIAGOIAZZETTI', 'sem e-mail'),
+  ('ADMIN_DASH_NO_PLAN_THIAGOIAZZETTI', 'Sem plano'),
+  ('ADMIN_DASH_NO_STUDENTS_THIAGOIAZZETTI', 'Nenhum aluno cadastrado'),
+  ('ADMIN_DASH_PLAN_CREATE_ERROR_THIAGOIAZZETTI', 'Erro ao criar plano'),
+  ('ADMIN_DASH_PLAN_CREATED_THIAGOIAZZETTI', 'Plano criado com sucesso'),
+  ('ADMIN_DASH_PLAN_NAME_REQUIRED_THIAGOIAZZETTI', 'Nome do plano e obrigatorio'),
+  ('ADMIN_DASH_SAVE_THIAGOIAZZETTI', 'Salvar'),
+  ('ADMIN_DASH_STUDENT_CREATE_ERROR_THIAGOIAZZETTI', 'Erro ao criar aluno'),
+  ('ADMIN_DASH_STUDENT_CREATED_THIAGOIAZZETTI', 'Aluno criado com sucesso'),
+  ('ADMIN_DASH_STUDENT_PLAN_THIAGOIAZZETTI', 'Plano do aluno'),
+  ('ADMIN_DASH_STUDENT_REQUIRED_THIAGOIAZZETTI', 'Nome e email sao obrigatorios'),
+  ('ADMIN_DASH_STUDENT_UPDATE_ERROR_THIAGOIAZZETTI', 'Erro ao atualizar aluno'),
+  ('ADMIN_DASH_STUDENT_UPDATED_THIAGOIAZZETTI', 'Aluno atualizado'),
+  ('ADMIN_DASH_STUDENTS_LIST_TITLE_THIAGOIAZZETTI', 'Alunos cadastrados')
+) AS k(chave, valor_ptbr)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo IN ('pt-BR', 'pt-PT', 'en-US', 'it-IT', 'es-ES', 'ar-MA')
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
+-- ============================================================
+-- Complemento: chaves faltantes dos containers da Visao Geral
+-- (cards estatisticos, status de pagamento, inativos e aniversariantes)
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  -- pt-BR
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'pt-BR', 'Alunos ativos'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'pt-BR', 'Planos'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'pt-BR', 'Inativos (5+ dias)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'pt-BR', 'Potencial mensal'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'pt-BR', 'Status de Pagamento'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'pt-BR', 'pagos'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'pt-BR', 'pendentes'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'pt-BR', 'atrasados'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'pt-BR', 'Alunos inativos'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'pt-BR', 'inativo ha mais de 5 dias'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'pt-BR', 'Nenhum aluno inativo. Perfeito!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'pt-BR', 'Aniversariantes'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'pt-BR', 'Nenhum aniversario proximo nos proximos 7 dias.'),
+
+  -- pt-PT
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'pt-PT', 'Alunos ativos'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'pt-PT', 'Planos'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'pt-PT', 'Inativos (5+ dias)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'pt-PT', 'Potencial mensal'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'pt-PT', 'Estado de Pagamento'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'pt-PT', 'pagos'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'pt-PT', 'pendentes'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'pt-PT', 'em atraso'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'pt-PT', 'Alunos inativos'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'pt-PT', 'inativo ha mais de 5 dias'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'pt-PT', 'Nenhum aluno inativo. Perfeito!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'pt-PT', 'Aniversariantes'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'pt-PT', 'Nenhum aniversario proximo nos proximos 7 dias.'),
+
+  -- en-US
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'en-US', 'Active students'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'en-US', 'Plans'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'en-US', 'Inactive (5+ days)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'en-US', 'Monthly potential'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'en-US', 'Payment Status'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'en-US', 'paid'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'en-US', 'pending'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'en-US', 'overdue'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'en-US', 'Inactive students'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'en-US', 'inactive students in the last 5 days'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'en-US', 'No inactive students. Perfect!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'en-US', 'Birthdays'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'en-US', 'No upcoming birthdays in the next 7 days.'),
+
+  -- it-IT
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'it-IT', 'Studenti attivi'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'it-IT', 'Piani'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'it-IT', 'Inattivi (5+ giorni)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'it-IT', 'Potenziale mensile'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'it-IT', 'Stato Pagamenti'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'it-IT', 'pagati'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'it-IT', 'in attesa'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'it-IT', 'in ritardo'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'it-IT', 'Studenti inattivi'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'it-IT', 'inattivi negli ultimi 5 giorni'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'it-IT', 'Nessuno studente inattivo. Perfetto!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'it-IT', 'Compleanni'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'it-IT', 'Nessun compleanno nei prossimi 7 giorni.'),
+
+  -- es-ES
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'es-ES', 'Alumnos activos'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'es-ES', 'Planes'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'es-ES', 'Inactivos (5+ dias)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'es-ES', 'Potencial mensual'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'es-ES', 'Estado de Pago'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'es-ES', 'pagados'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'es-ES', 'pendientes'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'es-ES', 'atrasados'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'es-ES', 'Alumnos inactivos'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'es-ES', 'inactivos en los ultimos 5 dias'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'es-ES', 'Ningun alumno inactivo. Perfecto!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'es-ES', 'Cumpleanos'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'es-ES', 'No hay cumpleanos proximos en los siguientes 7 dias.'),
+
+  -- ar-MA
+  ('ADMIN_DASH_STAT_ACTIVE_STUDENTS_THIAGOIAZZETTI', 'ar-MA', 'الطلاب النشطون'),
+  ('ADMIN_DASH_STAT_PLANS_THIAGOIAZZETTI',           'ar-MA', 'الخطط'),
+  ('ADMIN_DASH_STAT_INACTIVE_THIAGOIAZZETTI',        'ar-MA', 'غير النشطين (5+ ايام)'),
+  ('ADMIN_DASH_STAT_POTENTIAL_THIAGOIAZZETTI',       'ar-MA', 'الامكانية الشهرية'),
+  ('ADMIN_DASH_PAYMENT_STATUS_THIAGOIAZZETTI',       'ar-MA', 'حالة الدفع'),
+  ('ADMIN_DASH_PAID_THIAGOIAZZETTI',                 'ar-MA', 'مدفوعة'),
+  ('ADMIN_DASH_PENDING_THIAGOIAZZETTI',              'ar-MA', 'قيد الانتظار'),
+  ('ADMIN_DASH_OVERDUE_THIAGOIAZZETTI',              'ar-MA', 'متاخرة'),
+  ('ADMIN_DASH_INACTIVE_STUDENTS_THIAGOIAZZETTI',    'ar-MA', 'الطلاب غير النشطين'),
+  ('ADMIN_DASH_INACTIVE_LABEL_THIAGOIAZZETTI',       'ar-MA', 'غير نشط خلال اخر 5 ايام'),
+  ('ADMIN_DASH_NO_INACTIVE_THIAGOIAZZETTI',          'ar-MA', 'لا يوجد طلاب غير نشطين. ممتاز!'),
+  ('ADMIN_DASH_BIRTHDAYS_THIAGOIAZZETTI',            'ar-MA', 'اعياد الميلاد'),
+  ('ADMIN_DASH_NO_BIRTHDAYS_THIAGOIAZZETTI',         'ar-MA', 'لا توجد اعياد ميلاد قريبة خلال 7 ايام القادمة.')
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = t.codigo_idioma
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
 -- ──────────────────────────────────────────────────────────────
 -- Same keys for pt-PT (same Portuguese, minor differences)
 -- ──────────────────────────────────────────────────────────────
