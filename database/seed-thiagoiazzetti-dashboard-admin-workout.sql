@@ -217,6 +217,170 @@ ON CONFLICT (chave, sistema_id, idioma_id)
 DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
 
 -- ============================================================
+-- Complemento: Agenda e Dieta (chaves faltantes dos cards)
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT
+  k.chave,
+  CASE
+    WHEN i.codigo = 'en-US' THEN k.valor_en
+    ELSE k.valor_pt
+  END,
+  s.id,
+  i.id
+FROM (VALUES
+  ('ADMIN_AGENDA_LABEL_THIAGOIAZZETTI', 'Agenda', 'Schedule'),
+  ('ADMIN_AGENDA_TITLE_THIAGOIAZZETTI', 'Agenda do Personal', 'Trainer Schedule'),
+  ('ADMIN_AGENDA_SUBTITLE_THIAGOIAZZETTI', 'Calendario mensal, recorrencia semanal/mensal e presenca do aluno.', 'Monthly calendar, weekly/monthly recurrence, and student attendance.'),
+
+  ('DIET_HEADER_SUBTITLE_THIAGOIAZZETTI', 'Crie um plano de dieta, vincule a um aluno e selecione um ou varios dias da semana. Cada plano fica isolado.', 'Create a diet plan, link it to a student, and select one or more weekdays. Each plan stays isolated.'),
+  ('DIET_FORM_NEW_TITLE_THIAGOIAZZETTI', 'Nova dieta', 'New Diet'),
+  ('DIET_FORM_STUDENT_LABEL_THIAGOIAZZETTI', 'Aluno', 'Student'),
+  ('DIET_FORM_TITLE_LABEL_THIAGOIAZZETTI', 'Titulo', 'Title'),
+  ('DIET_FORM_DESC_LABEL_THIAGOIAZZETTI', 'Descricao (opcional)', 'Description (optional)'),
+  ('DIET_FORM_WEEKDAYS_LEGEND_THIAGOIAZZETTI', 'Dias da semana', 'Weekdays'),
+  ('DIET_FORM_MEALPLAN_LABEL_THIAGOIAZZETTI', 'Cardapio para os dias selecionados', 'Meal plan for selected days'),
+  ('DIET_FORM_CREATE_THIAGOIAZZETTI', 'Criar dieta', 'Create Diet'),
+  ('DIET_FORM_SAVE_CHANGES_THIAGOIAZZETTI', 'Salvar alteracoes', 'Save Changes'),
+  ('DIET_FORM_CANCEL_THIAGOIAZZETTI', 'Cancelar', 'Cancel'),
+  ('DIET_FORM_ASSOC_STUDENT_THIAGOIAZZETTI', 'Plano sera associado ao aluno', 'Plan will be assigned to student'),
+  ('DIET_LIST_EMPTY_THIAGOIAZZETTI', 'Nenhuma dieta cadastrada ainda.', 'No diets registered yet.'),
+  ('DIET_LIST_LOADING_THIAGOIAZZETTI', 'Carregando...', 'Loading...'),
+  ('DIET_LIST_EDIT_BUTTON_THIAGOIAZZETTI', 'Editar', 'Edit'),
+  ('DIET_LIST_DELETE_BUTTON_THIAGOIAZZETTI', 'Excluir', 'Delete'),
+  ('DIET_LIST_STUDENT_LABEL_THIAGOIAZZETTI', 'Aluno', 'Student'),
+  ('DIET_LIST_STUDENT_DEFAULT_THIAGOIAZZETTI', 'Aluno', 'Student'),
+  ('DIET_LOAD_ERROR_THIAGOIAZZETTI', 'Nao foi possivel carregar dietas', 'Could not load diets'),
+  ('DIET_SAVE_ERROR_THIAGOIAZZETTI', 'Nao foi possivel salvar dieta', 'Could not save diet'),
+  ('DIET_DELETE_ERROR_THIAGOIAZZETTI', 'Nao foi possivel remover dieta', 'Could not remove diet'),
+  ('DIET_REQUIRED_FIELDS_THIAGOIAZZETTI', 'Aluno, titulo e cardapio sao obrigatorios', 'Student, title and meal plan are required'),
+  ('DIET_SELECT_WEEKDAY_THIAGOIAZZETTI', 'Selecione pelo menos um dia da semana', 'Select at least one weekday'),
+  ('DIET_CREATED_THIAGOIAZZETTI', 'Dieta criada', 'Diet created'),
+  ('DIET_UPDATED_THIAGOIAZZETTI', 'Dieta atualizada', 'Diet updated'),
+  ('DIET_DELETED_THIAGOIAZZETTI', 'Dieta removida', 'Diet removed'),
+  ('DIET_FORM_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'Ex: Dieta de definicao', 'Ex: Cutting diet'),
+  ('DIET_FORM_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'Objetivo da dieta', 'Diet objective'),
+  ('DIET_FORM_MEALPLAN_PLACEHOLDER_THIAGOIAZZETTI', 'Ex: Cafe da manha: ovos e aveia...', 'Ex: Breakfast: eggs and oats...')
+) AS k(chave, valor_pt, valor_en)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo IN ('pt-BR', 'pt-PT', 'en-US', 'it-IT', 'es-ES', 'ar-MA')
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
+-- ============================================================
+-- Complemento: placeholders e labels faltantes dos prints
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'pt-BR', 'Ex: Plano Premium'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'pt-BR', 'Descreva o plano...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'pt-BR', 'Ex: Peito e Costas'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'pt-BR', 'Ex: Força e Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'pt-BR', 'Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'pt-BR', 'Força'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'pt-BR', 'Definição'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'pt-BR', 'Resistência'),
+
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'pt-PT', 'Ex: Plano Premium'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'pt-PT', 'Descreva o plano...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'pt-PT', 'Ex: Peito e Costas'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'pt-PT', 'Ex: Força e Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'pt-PT', 'Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'pt-PT', 'Força'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'pt-PT', 'Definição'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'pt-PT', 'Resistência'),
+
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'en-US', 'Ex: Premium Plan'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'en-US', 'Describe the plan...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'en-US', 'Ex: Chest and Back'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'en-US', 'Ex: Strength and Hypertrophy'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'en-US', 'Hypertrophy'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'en-US', 'Strength'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'en-US', 'Cutting'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'en-US', 'Endurance'),
+
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'it-IT', 'Es: Piano Premium'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'it-IT', 'Descrivi il piano...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'it-IT', 'Es: Petto e Schiena'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'it-IT', 'Es: Forza e Ipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'it-IT', 'Ipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'it-IT', 'Forza'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'it-IT', 'Definizione'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'it-IT', 'Resistenza'),
+
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'es-ES', 'Ej: Plan Premium'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'es-ES', 'Describe el plan...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'es-ES', 'Ej: Pecho y Espalda'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'es-ES', 'Ej: Fuerza e Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'es-ES', 'Hipertrofia'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'es-ES', 'Fuerza'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'es-ES', 'Definición'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'es-ES', 'Resistencia'),
+
+  ('ADMIN_DASH_PLAN_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'ar-MA', 'مثال: خطة بريميوم'),
+  ('ADMIN_DASH_PLAN_DESC_PLACEHOLDER_THIAGOIAZZETTI', 'ar-MA', 'اكتب وصف الخطة...'),
+  ('WORKOUT_BUILDER_TITLE_PLACEHOLDER_THIAGOIAZZETTI', 'ar-MA', 'مثال: صدر وظهر'),
+  ('WORKOUT_BUILDER_OBJECTIVE_PLACEHOLDER_THIAGOIAZZETTI', 'ar-MA', 'مثال: قوة وتضخم'),
+  ('WORKOUT_BUILDER_PHASE_HYPERTROPHY_THIAGOIAZZETTI', 'ar-MA', 'تضخم'),
+  ('WORKOUT_BUILDER_PHASE_STRENGTH_THIAGOIAZZETTI', 'ar-MA', 'قوة'),
+  ('WORKOUT_BUILDER_PHASE_CUTTING_THIAGOIAZZETTI', 'ar-MA', 'تنشيف'),
+  ('WORKOUT_BUILDER_PHASE_ENDURANCE_THIAGOIAZZETTI', 'ar-MA', 'تحمل')
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = t.codigo_idioma
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
+-- ============================================================
+-- Fix: en-US values for AdminDashboard keys that were inserted
+-- with pt-BR fallback across all locales.
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  ('ADMIN_CHAT_DIET_FORWARDED_THIAGOIAZZETTI', 'Diet forwarded'),
+  ('ADMIN_CHAT_FORWARD_DIET_THIAGOIAZZETTI', 'Forward diet'),
+  ('ADMIN_CHAT_FORWARD_WORKOUT_THIAGOIAZZETTI', 'Forward workout'),
+  ('ADMIN_CHAT_NO_EMAIL_THIAGOIAZZETTI', 'no email'),
+  ('ADMIN_CHAT_SEND_THIAGOIAZZETTI', 'Send'),
+  ('ADMIN_CHAT_WORKOUT_FORWARDED_THIAGOIAZZETTI', 'Workout forwarded'),
+  ('ADMIN_DASH_ACTIVE_STUDENT_THIAGOIAZZETTI', 'active student'),
+  ('ADMIN_DASH_BIRTHDATE_THIAGOIAZZETTI', 'Birthdate'),
+  ('ADMIN_DASH_CANCEL_THIAGOIAZZETTI', 'Cancel'),
+  ('ADMIN_DASH_COL_DUE_DATE_THIAGOIAZZETTI', 'Due Date'),
+  ('ADMIN_DASH_COL_MONTHLY_THIAGOIAZZETTI', 'Monthly Fee'),
+  ('ADMIN_DASH_COL_PHONE_THIAGOIAZZETTI', 'Phone'),
+  ('ADMIN_DASH_CREATE_PLAN_BUTTON_THIAGOIAZZETTI', 'Create Plan'),
+  ('ADMIN_DASH_CREATE_PLAN_THIAGOIAZZETTI', 'Create new plan'),
+  ('ADMIN_DASH_CREATE_STUDENT_BUTTON_THIAGOIAZZETTI', 'Create Student'),
+  ('ADMIN_DASH_CREATE_STUDENT_THIAGOIAZZETTI', 'Register new student'),
+  ('ADMIN_DASH_EDIT_STUDENT_THIAGOIAZZETTI', 'Edit student'),
+  ('ADMIN_DASH_HEADER_LABEL_THIAGOIAZZETTI', 'Dashboard'),
+  ('ADMIN_DASH_HEADER_TITLE_THIAGOIAZZETTI', 'Overview'),
+  ('ADMIN_DASH_LOAD_ERROR_THIAGOIAZZETTI', 'Error loading dashboard'),
+  ('ADMIN_DASH_LOADING_THIAGOIAZZETTI', 'Loading...'),
+  ('ADMIN_DASH_NO_EMAIL_THIAGOIAZZETTI', 'no email'),
+  ('ADMIN_DASH_NO_PLAN_THIAGOIAZZETTI', 'No plan'),
+  ('ADMIN_DASH_NO_STUDENTS_THIAGOIAZZETTI', 'No students registered'),
+  ('ADMIN_DASH_PLAN_CREATE_ERROR_THIAGOIAZZETTI', 'Error creating plan'),
+  ('ADMIN_DASH_PLAN_CREATED_THIAGOIAZZETTI', 'Plan created successfully'),
+  ('ADMIN_DASH_PLAN_NAME_REQUIRED_THIAGOIAZZETTI', 'Plan name is required'),
+  ('ADMIN_DASH_SAVE_THIAGOIAZZETTI', 'Save'),
+  ('ADMIN_DASH_STUDENT_CREATE_ERROR_THIAGOIAZZETTI', 'Error creating student'),
+  ('ADMIN_DASH_STUDENT_CREATED_THIAGOIAZZETTI', 'Student created successfully'),
+  ('ADMIN_DASH_STUDENT_PLAN_THIAGOIAZZETTI', 'Student plan'),
+  ('ADMIN_DASH_STUDENT_REQUIRED_THIAGOIAZZETTI', 'Name and email are required'),
+  ('ADMIN_DASH_STUDENT_UPDATE_ERROR_THIAGOIAZZETTI', 'Error updating student'),
+  ('ADMIN_DASH_STUDENT_UPDATED_THIAGOIAZZETTI', 'Student updated'),
+  ('ADMIN_DASH_STUDENTS_LIST_TITLE_THIAGOIAZZETTI', 'Registered students')
+) AS t(chave, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = 'en-US'
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
+-- ============================================================
 -- Complemento: chaves restantes do AdminDashboardPage
 -- Base pt-BR replicada para os 6 idiomas (fallback consistente)
 -- ============================================================
