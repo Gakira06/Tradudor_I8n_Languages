@@ -1,0 +1,237 @@
+-- =============================================================
+-- Thiago Iazzetti - Traducoes da Home (Hero, botoes, marquee, footer)
+-- Sistema: website
+-- Todas as chaves com sufixo THIAGOIAZZETTI
+-- =============================================================
+
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'pt-BR', 'reviews verificados'),
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'pt-PT', 'reviews verificados'),
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'en-US', 'verified reviews'),
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'it-IT', 'recensioni verificate'),
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'es-ES', 'resenas verificadas'),
+  ('HOME_REVIEWS_VERIFIED_THIAGOIAZZETTI', 'ar-MA', 'تقييمات موثقة'),
+
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'pt-BR', 'Transforme'),
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'pt-PT', 'Transforme'),
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'en-US', 'Transform'),
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'it-IT', 'Trasforma'),
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'es-ES', 'Transforma'),
+  ('HOME_HERO_LINE_1_THIAGOIAZZETTI', 'ar-MA', 'حوّل'),
+
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'pt-BR', 'sua jornada'),
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'pt-PT', 'a sua jornada'),
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'en-US', 'your journey'),
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'it-IT', 'il tuo percorso'),
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'es-ES', 'tu camino'),
+  ('HOME_HERO_LINE_2_THIAGOIAZZETTI', 'ar-MA', 'رحلتك'),
+
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'pt-BR', 'hoje'),
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'pt-PT', 'hoje'),
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'en-US', 'today'),
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'it-IT', 'oggi'),
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'es-ES', 'hoy'),
+  ('HOME_HERO_LINE_3_THIAGOIAZZETTI', 'ar-MA', 'اليوم'),
+
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'pt-BR', 'Libere seu potencial com planos de treino personalizados, especialmente para voce.'),
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'pt-PT', 'Liberte o seu potencial com planos de treino personalizados, especialmente para si.'),
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'en-US', 'Unlock your potential with personalized training plans, designed especially for you.'),
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'it-IT', 'Libera il tuo potenziale con piani di allenamento personalizzati, pensati per te.'),
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'es-ES', 'Libera tu potencial con planes de entrenamiento personalizados, especialmente para ti.'),
+  ('HOME_HERO_DESCRIPTION_THIAGOIAZZETTI', 'ar-MA', 'أطلق إمكاناتك بخطط تدريب مخصصة صممت خصيصًا لك.'),
+
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'pt-BR', 'Junte-se a nos'),
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'pt-PT', 'Junte-se a nos'),
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'en-US', 'Join us'),
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'it-IT', 'Unisciti a noi'),
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'es-ES', 'Unete a nosotros'),
+  ('HOME_JOIN_US_THIAGOIAZZETTI', 'ar-MA', 'انضم الينا'),
+
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'pt-BR', 'Ver planos'),
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'pt-PT', 'Ver planos'),
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'en-US', 'View plans'),
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'it-IT', 'Vedi piani'),
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'es-ES', 'Ver planes'),
+  ('HOME_VIEW_PLANS_THIAGOIAZZETTI', 'ar-MA', 'عرض الخطط'),
+
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'pt-BR', 'membros'),
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'pt-PT', 'membros'),
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'en-US', 'members'),
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'it-IT', 'membri'),
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'es-ES', 'miembros'),
+  ('HOME_MEMBERS_THIAGOIAZZETTI', 'ar-MA', 'اعضاء'),
+
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'pt-BR', 'Libere seu potencial com planos de treino personalizados, especialmente para voce.'),
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'pt-PT', 'Liberte o seu potencial com planos de treino personalizados, especialmente para si.'),
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'en-US', 'Unlock your potential with personalized training plans, designed especially for you.'),
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'it-IT', 'Libera il tuo potenziale con piani di allenamento personalizzati, pensati per te.'),
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'es-ES', 'Libera tu potencial con planes de entrenamiento personalizados, especialmente para ti.'),
+  ('HOME_STATS_DESCRIPTION_THIAGOIAZZETTI', 'ar-MA', 'أطلق إمكاناتك بخطط تدريب مخصصة صممت خصيصًا لك.'),
+
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'pt-BR', 'Bem-vindo! Acesse a plataforma de'),
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'pt-PT', 'Bem-vindo! Aceda a plataforma de'),
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'en-US', 'Welcome! Access the platform of'),
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'it-IT', 'Benvenuto! Accedi alla piattaforma di'),
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'es-ES', 'Bienvenido! Accede a la plataforma de'),
+  ('HOME_WELCOME_PLATFORM_THIAGOIAZZETTI', 'ar-MA', 'مرحبًا! ادخل إلى منصة'),
+
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'pt-BR', 'Disponiveis'),
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'pt-PT', 'Disponiveis'),
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'en-US', 'Available'),
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'it-IT', 'Disponibili'),
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'es-ES', 'Disponibles'),
+  ('HOME_AVAILABLE_THIAGOIAZZETTI', 'ar-MA', 'متاحة'),
+
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'pt-BR', 'Nossos Planos'),
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'pt-PT', 'Nossos Planos'),
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'en-US', 'Our Plans'),
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'it-IT', 'I nostri piani'),
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'es-ES', 'Nuestros planes'),
+  ('HOME_OUR_PLANS_THIAGOIAZZETTI', 'ar-MA', 'خططنا'),
+
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'pt-BR', 'Nenhum plano disponivel no momento.'),
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'pt-PT', 'Nenhum plano disponivel de momento.'),
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'en-US', 'No plans available at the moment.'),
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'it-IT', 'Nessun piano disponibile al momento.'),
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'es-ES', 'No hay planes disponibles en este momento.'),
+  ('HOME_NO_PLANS_THIAGOIAZZETTI', 'ar-MA', 'لا توجد خطط متاحة حاليًا.'),
+
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'pt-BR', 'Fale conosco'),
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'pt-PT', 'Fale connosco'),
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'en-US', 'Talk to us'),
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'it-IT', 'Parla con noi'),
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'es-ES', 'Habla con nosotros'),
+  ('HOME_TALK_TO_US_THIAGOIAZZETTI', 'ar-MA', 'تحدث معنا'),
+
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'pt-BR', 'Plano'),
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'pt-PT', 'Plano'),
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'en-US', 'Plan'),
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'it-IT', 'Piano'),
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'es-ES', 'Plan'),
+  ('HOME_PLAN_LABEL_THIAGOIAZZETTI', 'ar-MA', 'خطة'),
+
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'pt-BR', '/mes'),
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'pt-PT', '/mes'),
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'en-US', '/month'),
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'it-IT', '/mese'),
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'es-ES', '/mes'),
+  ('HOME_PER_MONTH_THIAGOIAZZETTI', 'ar-MA', '/شهر'),
+
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'pt-BR', 'Quero este plano'),
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'pt-PT', 'Quero este plano'),
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'en-US', 'I want this plan'),
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'it-IT', 'Voglio questo piano'),
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'es-ES', 'Quiero este plan'),
+  ('HOME_I_WANT_THIS_PLAN_THIAGOIAZZETTI', 'ar-MA', 'اريد هذه الخطة'),
+
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'pt-BR', 'Musculacao'),
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'pt-PT', 'Musculacao'),
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'en-US', 'Muscle training'),
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'it-IT', 'Muscolazione'),
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'es-ES', 'Musculacion'),
+  ('HOME_MARQUEE_MUSCULATION_THIAGOIAZZETTI', 'ar-MA', 'بناء العضلات'),
+
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'pt-BR', 'Emagrecimento'),
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'pt-PT', 'Emagrecimento'),
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'en-US', 'Weight loss'),
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'it-IT', 'Dimagrimento'),
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'es-ES', 'Perdida de peso'),
+  ('HOME_MARQUEE_WEIGHT_LOSS_THIAGOIAZZETTI', 'ar-MA', 'انقاص الوزن'),
+
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'pt-BR', 'Ganho de Massa'),
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'pt-PT', 'Ganho de Massa'),
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'en-US', 'Mass gain'),
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'it-IT', 'Aumento massa'),
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'es-ES', 'Ganancia muscular'),
+  ('HOME_MARQUEE_MASS_GAIN_THIAGOIAZZETTI', 'ar-MA', 'زيادة الكتلة'),
+
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'pt-BR', 'Hipertrofia'),
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'pt-PT', 'Hipertrofia'),
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'en-US', 'Hypertrophy'),
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'it-IT', 'Ipertrofia'),
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'es-ES', 'Hipertrofia'),
+  ('HOME_MARQUEE_HYPERTROPHY_THIAGOIAZZETTI', 'ar-MA', 'تضخيم عضلي'),
+
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'pt-BR', 'Condicionamento'),
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'pt-PT', 'Condicionamento'),
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'en-US', 'Conditioning'),
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'it-IT', 'Condizionamento'),
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'es-ES', 'Acondicionamiento'),
+  ('HOME_MARQUEE_CONDITIONING_THIAGOIAZZETTI', 'ar-MA', 'اللياقة'),
+
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'pt-BR', 'Treino Funcional'),
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'pt-PT', 'Treino Funcional'),
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'en-US', 'Functional Training'),
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'it-IT', 'Allenamento Funzionale'),
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'es-ES', 'Entrenamiento Funcional'),
+  ('HOME_MARQUEE_FUNCTIONAL_THIAGOIAZZETTI', 'ar-MA', 'تدريب وظيفي'),
+
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'pt-BR', 'HIIT'),
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'pt-PT', 'HIIT'),
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'en-US', 'HIIT'),
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'it-IT', 'HIIT'),
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'es-ES', 'HIIT'),
+  ('HOME_MARQUEE_HIIT_THIAGOIAZZETTI', 'ar-MA', 'هيت'),
+
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'pt-BR', 'Mobilidade'),
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'pt-PT', 'Mobilidade'),
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'en-US', 'Mobility'),
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'it-IT', 'Mobilita'),
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'es-ES', 'Movilidad'),
+  ('HOME_MARQUEE_MOBILITY_THIAGOIAZZETTI', 'ar-MA', 'المرونة'),
+
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'pt-BR', 'Forca'),
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'pt-PT', 'Forca'),
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'en-US', 'Strength'),
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'it-IT', 'Forza'),
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'es-ES', 'Fuerza'),
+  ('HOME_MARQUEE_STRENGTH_THIAGOIAZZETTI', 'ar-MA', 'القوة'),
+
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'pt-BR', 'Resistencia'),
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'pt-PT', 'Resistencia'),
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'en-US', 'Endurance'),
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'it-IT', 'Resistenza'),
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'es-ES', 'Resistencia'),
+  ('HOME_MARQUEE_ENDURANCE_THIAGOIAZZETTI', 'ar-MA', 'التحمل'),
+
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'pt-BR', 'Personal trainer especializado em musculacao e transformacao corporal.'),
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'pt-PT', 'Personal trainer especializado em musculacao e transformacao corporal.'),
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'en-US', 'Personal trainer specialized in strength and body transformation.'),
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'it-IT', 'Personal trainer specializzato in allenamento e trasformazione fisica.'),
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'es-ES', 'Entrenador personal especializado en fuerza y transformacion corporal.'),
+  ('FOOTER_BRAND_DESCRIPTION_THIAGOIAZZETTI', 'ar-MA', 'مدرب شخصي متخصص في اللياقة وتغيير الجسم.'),
+
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'pt-BR', 'Links'),
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'pt-PT', 'Links'),
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'en-US', 'Links'),
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'it-IT', 'Link'),
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'es-ES', 'Enlaces'),
+  ('FOOTER_LINKS_TITLE_THIAGOIAZZETTI', 'ar-MA', 'روابط'),
+
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'pt-BR', 'Contato'),
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'pt-PT', 'Contacto'),
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'en-US', 'Contact'),
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'it-IT', 'Contatto'),
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'es-ES', 'Contacto'),
+  ('FOOTER_CONTACT_TITLE_THIAGOIAZZETTI', 'ar-MA', 'تواصل'),
+
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'pt-BR', 'Fale conosco no WhatsApp'),
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'pt-PT', 'Fale connosco no WhatsApp'),
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'en-US', 'Talk to us on WhatsApp'),
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'it-IT', 'Parla con noi su WhatsApp'),
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'es-ES', 'Habla con nosotros por WhatsApp'),
+  ('FOOTER_WHATSAPP_CTA_THIAGOIAZZETTI', 'ar-MA', 'تواصل معنا عبر واتساب'),
+
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'pt-BR', 'Thiago Iazzetti. Todos os direitos reservados.'),
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'pt-PT', 'Thiago Iazzetti. Todos os direitos reservados.'),
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'en-US', 'Thiago Iazzetti. All rights reserved.'),
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'it-IT', 'Thiago Iazzetti. Tutti i diritti riservati.'),
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'es-ES', 'Thiago Iazzetti. Todos los derechos reservados.'),
+  ('FOOTER_COPYRIGHT_TEXT_THIAGOIAZZETTI', 'ar-MA', 'Thiago Iazzetti. جميع الحقوق محفوظة.')
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = t.codigo_idioma
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();

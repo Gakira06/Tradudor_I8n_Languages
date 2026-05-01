@@ -1,0 +1,282 @@
+-- =============================================================
+-- Thiago Iazzetti - Traducoes Auth + Planos + Agenda Cliente
+-- Sistema: website
+-- Chaves com sufixo THIAGOIAZZETTI
+-- =============================================================
+
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  -- LOGIN
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','pt-BR','Nao foi possivel entrar'),
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','pt-PT','Nao foi possivel entrar'),
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','en-US','Could not sign in'),
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','it-IT','Accesso non riuscito'),
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','es-ES','No fue posible iniciar sesion'),
+  ('LOGIN_ERROR_GENERIC_THIAGOIAZZETTI','ar-MA','تعذر تسجيل الدخول'),
+
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','pt-BR','Personal admin & aluno'),
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','pt-PT','Personal admin & aluno'),
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','en-US','Coach admin & student'),
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','it-IT','Admin coach & studente'),
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','es-ES','Admin entrenador & alumno'),
+  ('LOGIN_BADGE_ROLE_THIAGOIAZZETTI','ar-MA','مشرف المدرب والطالب'),
+
+  ('LOGIN_TITLE_THIAGOIAZZETTI','pt-BR','Entrar na plataforma real.'),
+  ('LOGIN_TITLE_THIAGOIAZZETTI','pt-PT','Entrar na plataforma real.'),
+  ('LOGIN_TITLE_THIAGOIAZZETTI','en-US','Sign in to the real platform.'),
+  ('LOGIN_TITLE_THIAGOIAZZETTI','it-IT','Accedi alla piattaforma reale.'),
+  ('LOGIN_TITLE_THIAGOIAZZETTI','es-ES','Inicia sesion en la plataforma real.'),
+  ('LOGIN_TITLE_THIAGOIAZZETTI','ar-MA','سجّل الدخول إلى المنصة الحقيقية.'),
+
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','pt-BR','Use sua conta para acessar seus treinos, o painel do personal ou a area do aluno.'),
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','pt-PT','Use a sua conta para aceder aos seus treinos, ao painel do personal ou a area do aluno.'),
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','en-US','Use your account to access workouts, coach dashboard, or student area.'),
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','it-IT','Usa il tuo account per accedere agli allenamenti, al pannello coach o all area studente.'),
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','es-ES','Usa tu cuenta para acceder a tus entrenamientos, panel del entrenador o area del alumno.'),
+  ('LOGIN_SUBTITLE_THIAGOIAZZETTI','ar-MA','استخدم حسابك للوصول إلى تمارينك ولوحة المدرب ومنطقة الطالب.'),
+
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','pt-BR','Personal'),
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','pt-PT','Personal'),
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','en-US','Coach'),
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','it-IT','Coach'),
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','es-ES','Entrenador'),
+  ('LOGIN_CARD_PERSONAL_TITLE_THIAGOIAZZETTI','ar-MA','المدرب'),
+
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','pt-BR','Acesso ao painel, alunos, planos e treinos.'),
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','pt-PT','Acesso ao painel, alunos, planos e treinos.'),
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','en-US','Access dashboard, students, plans, and workouts.'),
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','it-IT','Accesso a pannello, studenti, piani e allenamenti.'),
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','es-ES','Acceso al panel, alumnos, planes y entrenamientos.'),
+  ('LOGIN_CARD_PERSONAL_TEXT_THIAGOIAZZETTI','ar-MA','الوصول إلى اللوحة والطلاب والخطط والتمارين.'),
+
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','pt-BR','Aluno'),
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','pt-PT','Aluno'),
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','en-US','Student'),
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','it-IT','Studente'),
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','es-ES','Alumno'),
+  ('LOGIN_CARD_STUDENT_TITLE_THIAGOIAZZETTI','ar-MA','الطالب'),
+
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','pt-BR','Acesso ao perfil, plano contratado e treinos.'),
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','pt-PT','Acesso ao perfil, plano contratado e treinos.'),
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','en-US','Access profile, selected plan, and workouts.'),
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','it-IT','Accesso al profilo, piano scelto e allenamenti.'),
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','es-ES','Acceso al perfil, plan contratado y entrenamientos.'),
+  ('LOGIN_CARD_STUDENT_TEXT_THIAGOIAZZETTI','ar-MA','الوصول إلى الملف الشخصي والخطة والتمارين.'),
+
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','pt-BR','Acesso'),
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','pt-PT','Acesso'),
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','en-US','Access'),
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','it-IT','Accesso'),
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','es-ES','Acceso'),
+  ('LOGIN_ACCESS_LABEL_THIAGOIAZZETTI','ar-MA','الدخول'),
+
+  ('LOGIN_HEADING_THIAGOIAZZETTI','pt-BR','Login'),
+  ('LOGIN_HEADING_THIAGOIAZZETTI','pt-PT','Login'),
+  ('LOGIN_HEADING_THIAGOIAZZETTI','en-US','Login'),
+  ('LOGIN_HEADING_THIAGOIAZZETTI','it-IT','Accesso'),
+  ('LOGIN_HEADING_THIAGOIAZZETTI','es-ES','Inicio de sesion'),
+  ('LOGIN_HEADING_THIAGOIAZZETTI','ar-MA','تسجيل الدخول'),
+
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','pt-BR','Email'),
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','pt-PT','Email'),
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','en-US','Email'),
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','it-IT','Email'),
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','es-ES','Correo'),
+  ('LOGIN_EMAIL_LABEL_THIAGOIAZZETTI','ar-MA','البريد الإلكتروني'),
+
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','pt-BR','voce@exemplo.com'),
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','pt-PT','voce@exemplo.com'),
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','en-US','you@example.com'),
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','it-IT','tuo@example.com'),
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','es-ES','tu@ejemplo.com'),
+  ('LOGIN_EMAIL_PLACEHOLDER_THIAGOIAZZETTI','ar-MA','you@example.com'),
+
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','pt-BR','Senha'),
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','pt-PT','Senha'),
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','en-US','Password'),
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','it-IT','Password'),
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','es-ES','Contrasena'),
+  ('LOGIN_PASSWORD_LABEL_THIAGOIAZZETTI','ar-MA','كلمة المرور'),
+
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','pt-BR','Entrando...'),
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','pt-PT','Entrando...'),
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','en-US','Signing in...'),
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','it-IT','Accesso in corso...'),
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','es-ES','Entrando...'),
+  ('LOGIN_BUTTON_LOADING_THIAGOIAZZETTI','ar-MA','جاري الدخول...'),
+
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','pt-BR','Entrar agora'),
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','pt-PT','Entrar agora'),
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','en-US','Sign in now'),
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','it-IT','Accedi ora'),
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','es-ES','Entrar ahora'),
+  ('LOGIN_BUTTON_SUBMIT_THIAGOIAZZETTI','ar-MA','ادخل الآن'),
+
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','pt-BR','Criar conta de aluno'),
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','pt-PT','Criar conta de aluno'),
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','en-US','Create student account'),
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','it-IT','Crea account studente'),
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','es-ES','Crear cuenta de alumno'),
+  ('LOGIN_LINK_CREATE_ACCOUNT_THIAGOIAZZETTI','ar-MA','إنشاء حساب طالب'),
+
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','pt-BR','Voltar para a pagina inicial'),
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','pt-PT','Voltar para a pagina inicial'),
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','en-US','Back to homepage'),
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','it-IT','Torna alla home'),
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','es-ES','Volver a la pagina inicial'),
+  ('LOGIN_LINK_BACK_HOME_THIAGOIAZZETTI','ar-MA','العودة إلى الصفحة الرئيسية'),
+
+  -- REGISTER
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','pt-BR','Nao foi possivel cadastrar'),
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','pt-PT','Nao foi possivel registar'),
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','en-US','Could not register'),
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','it-IT','Registrazione non riuscita'),
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','es-ES','No fue posible registrar'),
+  ('REGISTER_ERROR_GENERIC_THIAGOIAZZETTI','ar-MA','تعذر إنشاء الحساب'),
+
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','pt-BR','Cadastro de aluno por tenant'),
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','pt-PT','Registo de aluno por tenant'),
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','en-US','Student signup per tenant'),
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','it-IT','Registrazione studente per tenant'),
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','es-ES','Registro de alumno por tenant'),
+  ('REGISTER_BADGE_SUBTITLE_THIAGOIAZZETTI','ar-MA','تسجيل الطالب حسب المستأجر'),
+
+  ('REGISTER_TITLE_THIAGOIAZZETTI','pt-BR','Entre no seu personal e acompanhe seus treinos.'),
+  ('REGISTER_TITLE_THIAGOIAZZETTI','pt-PT','Entre no seu personal e acompanhe os seus treinos.'),
+  ('REGISTER_TITLE_THIAGOIAZZETTI','en-US','Join your coach and track your workouts.'),
+  ('REGISTER_TITLE_THIAGOIAZZETTI','it-IT','Unisciti al tuo coach e segui i tuoi allenamenti.'),
+  ('REGISTER_TITLE_THIAGOIAZZETTI','es-ES','Unete a tu entrenador y sigue tus entrenamientos.'),
+  ('REGISTER_TITLE_THIAGOIAZZETTI','ar-MA','انضم إلى مدربك وتابع تدريباتك.'),
+
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','pt-BR','O cadastro cria o usuario do aluno e amarra a conta ao tenant informado. Depois do registro, o login vai direto para sua area.'),
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','pt-PT','O registo cria o utilizador do aluno e associa a conta ao tenant informado. Depois do registo, o login vai direto para a sua area.'),
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','en-US','Signup creates the student user and links the account to the provided tenant. After registration, login goes directly to your area.'),
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','it-IT','La registrazione crea l utente studente e collega l account al tenant indicato. Dopo la registrazione, il login porta direttamente alla tua area.'),
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','es-ES','El registro crea el usuario alumno y vincula la cuenta al tenant informado. Despues del registro, el login va directo a tu area.'),
+  ('REGISTER_SUBTITLE_THIAGOIAZZETTI','ar-MA','ينشئ التسجيل حساب الطالب ويربطه بالمستأجر المحدد. بعد التسجيل، سيتم توجيهك مباشرة إلى منطقتك.'),
+
+  -- CLIENT AGENDA + WEEKDAYS
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','pt-BR','Nao foi possivel carregar agenda'),
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','pt-PT','Nao foi possivel carregar a agenda'),
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','en-US','Could not load schedule'),
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','it-IT','Impossibile caricare agenda'),
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','es-ES','No fue posible cargar agenda'),
+  ('CLIENT_AGENDA_ERROR_LOAD_THIAGOIAZZETTI','ar-MA','تعذر تحميل الجدول'),
+
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','pt-BR','Agenda do aluno'),
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','pt-PT','Agenda do aluno'),
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','en-US','Student schedule'),
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','it-IT','Agenda studente'),
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','es-ES','Agenda del alumno'),
+  ('CLIENT_AGENDA_LABEL_THIAGOIAZZETTI','ar-MA','جدول الطالب'),
+
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','pt-BR','Seus horarios e orientacoes'),
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','pt-PT','Os seus horarios e orientacoes'),
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','en-US','Your schedule and guidance'),
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','it-IT','I tuoi orari e indicazioni'),
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','es-ES','Tus horarios y orientaciones'),
+  ('CLIENT_AGENDA_TITLE_THIAGOIAZZETTI','ar-MA','مواعيدك وتوجيهاتك'),
+
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','pt-BR','Aqui aparecem os compromissos que seu personal cadastrou para voce, incluindo treino e dieta.'),
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','pt-PT','Aqui aparecem os compromissos que o seu personal registou para si, incluindo treino e dieta.'),
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','en-US','Here you can see appointments your coach created for you, including workout and diet.'),
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','it-IT','Qui trovi gli impegni creati dal tuo coach, inclusi allenamento e dieta.'),
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','es-ES','Aqui aparecen los compromisos que tu entrenador creo para ti, incluyendo entrenamiento y dieta.'),
+  ('CLIENT_AGENDA_SUBTITLE_THIAGOIAZZETTI','ar-MA','هنا تظهر المواعيد التي أنشأها مدربك لك، بما في ذلك التمرين والنظام الغذائي.'),
+
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','pt-BR','Carregando agenda...'),
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','pt-PT','A carregar agenda...'),
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','en-US','Loading schedule...'),
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','it-IT','Caricamento agenda...'),
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','es-ES','Cargando agenda...'),
+  ('CLIENT_AGENDA_LOADING_THIAGOIAZZETTI','ar-MA','جاري تحميل الجدول...'),
+
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','pt-BR','Nenhum evento na agenda por enquanto.'),
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','pt-PT','Nenhum evento na agenda por enquanto.'),
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','en-US','No events in schedule yet.'),
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','it-IT','Nessun evento in agenda per ora.'),
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','es-ES','No hay eventos en la agenda por ahora.'),
+  ('CLIENT_AGENDA_EMPTY_THIAGOIAZZETTI','ar-MA','لا توجد أحداث في الجدول حالياً.'),
+
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','pt-BR','eventos'),
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','pt-PT','eventos'),
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','en-US','events'),
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','it-IT','eventi'),
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','es-ES','eventos'),
+  ('CLIENT_AGENDA_EVENTS_THIAGOIAZZETTI','ar-MA','أحداث'),
+
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','pt-BR','Confirmar presenca'),
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','pt-PT','Confirmar presenca'),
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','en-US','Confirm attendance'),
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','it-IT','Conferma presenza'),
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','es-ES','Confirmar asistencia'),
+  ('CLIENT_AGENDA_CONFIRM_ATTENDANCE_THIAGOIAZZETTI','ar-MA','تأكيد الحضور'),
+
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','pt-BR','Presenca atualizada'),
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','pt-PT','Presenca atualizada'),
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','en-US','Attendance updated'),
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','it-IT','Presenza aggiornata'),
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','es-ES','Asistencia actualizada'),
+  ('CLIENT_AGENDA_ATTENDANCE_UPDATED_THIAGOIAZZETTI','ar-MA','تم تحديث الحضور'),
+
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','pt-BR','Nao foi possivel confirmar presenca'),
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','pt-PT','Nao foi possivel confirmar presenca'),
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','en-US','Could not confirm attendance'),
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','it-IT','Impossibile confermare presenza'),
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','es-ES','No fue posible confirmar asistencia'),
+  ('CLIENT_AGENDA_ATTENDANCE_ERROR_THIAGOIAZZETTI','ar-MA','تعذر تأكيد الحضور'),
+
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','pt-BR','Dom'),
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','pt-PT','Dom'),
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','en-US','Sun'),
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','it-IT','Dom'),
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','es-ES','Dom'),
+  ('WEEKDAY_SUN_THIAGOIAZZETTI','ar-MA','أحد'),
+
+  ('WEEKDAY_MON_THIAGOIAZZETTI','pt-BR','Seg'),
+  ('WEEKDAY_MON_THIAGOIAZZETTI','pt-PT','Seg'),
+  ('WEEKDAY_MON_THIAGOIAZZETTI','en-US','Mon'),
+  ('WEEKDAY_MON_THIAGOIAZZETTI','it-IT','Lun'),
+  ('WEEKDAY_MON_THIAGOIAZZETTI','es-ES','Lun'),
+  ('WEEKDAY_MON_THIAGOIAZZETTI','ar-MA','اثن'),
+
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','pt-BR','Ter'),
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','pt-PT','Ter'),
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','en-US','Tue'),
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','it-IT','Mar'),
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','es-ES','Mar'),
+  ('WEEKDAY_TUE_THIAGOIAZZETTI','ar-MA','ثلا'),
+
+  ('WEEKDAY_WED_THIAGOIAZZETTI','pt-BR','Qua'),
+  ('WEEKDAY_WED_THIAGOIAZZETTI','pt-PT','Qua'),
+  ('WEEKDAY_WED_THIAGOIAZZETTI','en-US','Wed'),
+  ('WEEKDAY_WED_THIAGOIAZZETTI','it-IT','Mer'),
+  ('WEEKDAY_WED_THIAGOIAZZETTI','es-ES','Mie'),
+  ('WEEKDAY_WED_THIAGOIAZZETTI','ar-MA','أرب'),
+
+  ('WEEKDAY_THU_THIAGOIAZZETTI','pt-BR','Qui'),
+  ('WEEKDAY_THU_THIAGOIAZZETTI','pt-PT','Qui'),
+  ('WEEKDAY_THU_THIAGOIAZZETTI','en-US','Thu'),
+  ('WEEKDAY_THU_THIAGOIAZZETTI','it-IT','Gio'),
+  ('WEEKDAY_THU_THIAGOIAZZETTI','es-ES','Jue'),
+  ('WEEKDAY_THU_THIAGOIAZZETTI','ar-MA','خم'),
+
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','pt-BR','Sex'),
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','pt-PT','Sex'),
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','en-US','Fri'),
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','it-IT','Ven'),
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','es-ES','Vie'),
+  ('WEEKDAY_FRI_THIAGOIAZZETTI','ar-MA','جم'),
+
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','pt-BR','Sab'),
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','pt-PT','Sab'),
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','en-US','Sat'),
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','it-IT','Sab'),
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','es-ES','Sab'),
+  ('WEEKDAY_SAT_THIAGOIAZZETTI','ar-MA','سبت')
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = t.codigo_idioma
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
