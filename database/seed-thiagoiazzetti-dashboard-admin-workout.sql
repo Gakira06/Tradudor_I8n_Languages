@@ -424,7 +424,8 @@ FROM (VALUES
   ('ADMIN_DASH_STUDENTS_LIST_TITLE_THIAGOIAZZETTI', 'Alunos cadastrados')
 ) AS k(chave, valor_ptbr)
 JOIN sistemas s ON s.codigo = 'website'
-JOIN idiomas i ON i.codigo IN ('pt-BR', 'pt-PT', 'en-US', 'it-IT', 'es-ES', 'ar-MA')
+-- NOTE: exclude 'en-US' here — en-US values were already set correctly above
+JOIN idiomas i ON i.codigo IN ('pt-BR', 'pt-PT', 'it-IT', 'es-ES', 'ar-MA')
 ON CONFLICT (chave, sistema_id, idioma_id)
 DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
 
@@ -989,6 +990,24 @@ FROM (VALUES
   ('DASH_MONTHLY_REVENUE_THIAGOIAZZETTI',        'ar-MA', 'الإيرادات الشهرية'),
   ('DASH_NEW_STUDENT_BUTTON_THIAGOIAZZETTI',     'ar-MA', 'طالب جديد'),
   ('DASH_PRESCRIBE_WORKOUT_THIAGOIAZZETTI',      'ar-MA', 'وصف تمرين')
+) AS t(chave, codigo_idioma, valor)
+JOIN sistemas s ON s.codigo = 'website'
+JOIN idiomas i ON i.codigo = t.codigo_idioma
+ON CONFLICT (chave, sistema_id, idioma_id)
+DO UPDATE SET valor = EXCLUDED.valor, atualizado_em = NOW();
+
+-- ============================================================
+-- Fix: new placeholder key for create-student form
+-- ============================================================
+INSERT INTO traducoes (chave, valor, sistema_id, idioma_id)
+SELECT t.chave, t.valor, s.id, i.id
+FROM (VALUES
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'pt-BR', 'Ex: Joao Silva'),
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'pt-PT', 'Ex: Joao Silva'),
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'en-US', 'E.g. John Smith'),
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'it-IT', 'Es: Mario Rossi'),
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'es-ES', 'Ej: Juan Garcia'),
+  ('ADMIN_DASH_NAME_PLACEHOLDER_THIAGOIAZZETTI', 'ar-MA', 'مثال: محمد علي')
 ) AS t(chave, codigo_idioma, valor)
 JOIN sistemas s ON s.codigo = 'website'
 JOIN idiomas i ON i.codigo = t.codigo_idioma
